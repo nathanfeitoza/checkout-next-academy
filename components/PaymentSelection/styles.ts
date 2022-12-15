@@ -52,10 +52,10 @@ export const PaymentTypeItem = styled.div`
   }
 
   .ant-radio-inner::after {
-    width: 46px;
-    height: 46px;
-    margin-block-start: -23px;
-    margin-inline-start: -23px;
+    width: 35px;
+    height: 35px;
+    margin-block-start: -18px;
+    margin-inline-start: -18px;
     border-radius: 45px;
     background-color: #F35B04;
   }

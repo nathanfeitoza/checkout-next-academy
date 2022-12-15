@@ -53,7 +53,7 @@ export const FormPersonalData = ({
               label="CPF"
               name="document"
               register={register as any}
-              rules={{ required: true, maxLength: 14 }}
+              rules={{ required: true, maxLength: 255 }}
               errors={errors}
             />
           </Col>
@@ -64,7 +64,7 @@ export const FormPersonalData = ({
               label="Celular / Whatsapp"
               name="phone"
               register={register as any}
-              rules={{ required: true, maxLength: 14 }}
+              rules={{ required: true, maxLength: 255 }}
               errors={errors}
             />
           </Col>
@@ -75,7 +75,7 @@ export const FormPersonalData = ({
               label="Email"
               name="email"
               register={register as any}
-              rules={{ required: true, maxLength: 14 }}
+              rules={{ required: true, maxLength: 255 }}
               errors={errors}
             />
           </Col>
@@ -86,8 +86,9 @@ export const FormPersonalData = ({
               style={{ width: "93%" }}
               label="Data de Nascimento"
               name="birth_date"
+              type="tel"
               register={register as any}
-              rules={{ required: true, maxLength: 14 }}
+              rules={{ required: true, maxLength: 255 }}
               errors={errors}
             />
           </Col>
@@ -98,7 +99,7 @@ export const FormPersonalData = ({
               input_type="select"
               options={[{ label: "Masculino", value: "M" }, {label: "Feminino", value: "F"}]}
               register={register as any}
-              rules={{ required: true, maxLength: 14 }}
+              rules={{ required: true }}
               errors={errors}
             />
           </Col>
@@ -111,7 +112,7 @@ export const FormPersonalData = ({
               input_type="select"
               options={STATES.map(state => ({ label: state, value: state }))}
               register={register as any}
-              rules={{ required: true, maxLength: 14 }}
+              rules={{ required: true }}
               errors={errors}
             />
           </Col>
@@ -124,7 +125,7 @@ export const FormPersonalData = ({
               input_type="select"
               options={CITYS[watch("state") || "SP"].map((city: any) => ({ label: city, value: city }))}
               register={register as any}
-              rules={{ required: true, maxLength: 14 }}
+              rules={{ required: true }}
               errors={errors}
             />
           </Col>

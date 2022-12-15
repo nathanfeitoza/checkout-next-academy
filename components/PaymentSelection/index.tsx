@@ -70,7 +70,7 @@ export const PaymentSelection = ({ onPay }: PaymentSelectionProps) => {
 
   return (
     <CenterLayout>
-      <Row style={{ paddingTop: "1rem", marginBottom: "-1.5rem" }}>
+      <Row style={{ paddingTop: "1rem", marginBottom: "0rem" }}>
         <SectionTitle>Detalhes do pedido</SectionTitle>
       </Row>
       <Row style={{ marginBottom: "1rem" }}>

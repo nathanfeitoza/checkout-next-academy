@@ -91,7 +91,7 @@ export const CardForm = ({ register, errors, watch }: CardFormProps) => {
             placeholder="MM/AAAA"
             name="card_due_date"
             register={register as any}
-            rules={{ required: true, maxLength: 14 }}
+            rules={{ required: true, maxLength: 255 }}
             errors={errors}
           />
         </Col>
@@ -102,7 +102,7 @@ export const CardForm = ({ register, errors, watch }: CardFormProps) => {
             name="card_cvv"
             placeholder="999"
             register={register as any}
-            rules={{ required: true, maxLength: 14 }}
+            rules={{ required: true, maxLength: 255 }}
             errors={errors}
           />
         </Col>
