@@ -4,6 +4,7 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: #171717;
 }
 
 a {
@@ -22,5 +23,17 @@ a {
   body {
     color: white;
     background: black;
+  }
+}
+
+.input-row {
+  margin-bottom: 1rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .row-center .ant-col {
+    margin-inline-start: 0% !important;
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
   }
 }
