@@ -11,7 +11,7 @@
   "dependencies": {
     "@ant-design/icons": "^4.8.0",
     "@types/styled-components": "^5.1.26",
-    "antd": "^5.0.7",
+    "antd": "^4.24.5",
     "next": "13.0.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
