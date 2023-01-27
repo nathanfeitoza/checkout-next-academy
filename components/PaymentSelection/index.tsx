@@ -17,13 +17,14 @@ import {
 
 export interface PaymentSelectionProps {
   onPay: (paymentData: PaymentData) => any;
+  loading: boolean;
 }
 
 const PAYMENTS_TYPES = {
   card: {
     label: "Cartão de crédito",
-    children: (register: any, errors: any, watch: any) => (
-      <CardForm watch={watch} register={register} errors={errors} />
+    children: (control: any, errors: any, watch: any) => (
+      <CardForm watch={watch} control={control} errors={errors} />
     ),
   },
   pix: {
@@ -42,16 +43,15 @@ const PAYMENTS_TYPES = {
   },
 };
 
-export const PaymentSelection = ({ onPay }: PaymentSelectionProps) => {
+export const PaymentSelection = ({ onPay, loading }: PaymentSelectionProps) => {
   const {
-    register,
+    control,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm();
+  } = useForm({ defaultValues: { installments: 1 } });
   const onSubmit = (data: any) => {
-    console.log(data);
-    if (!Object.entries(data).length) {
+    if (selectedPayment === "pix") {
       data = {
         pix_payment: {
           img_url: "/assets/qrcode.png",
@@ -59,6 +59,7 @@ export const PaymentSelection = ({ onPay }: PaymentSelectionProps) => {
         },
       };
     }
+
     onPay({ ...data, type: selectedPayment });
   };
   const [selectedPayment, setSelectedPayment] = useState();
@@ -95,7 +96,7 @@ export const PaymentSelection = ({ onPay }: PaymentSelectionProps) => {
                   </PaymentTypeRadioContainer>
                   {selectedPayment === name && (
                     <ItemContainer>
-                      {data.children(register, errors, watch)}
+                      {data.children(control, errors, watch)}
                     </ItemContainer>
                   )}
                 </PaymentTypeItem>
@@ -105,7 +106,7 @@ export const PaymentSelection = ({ onPay }: PaymentSelectionProps) => {
         </Row>
         <Row style={{ marginTop: "2rem" }} className="input-row">
           <Col span={24}>
-            <DefaultButton type="submit">Confirmar Pagamento →</DefaultButton>
+            <DefaultButton loading={loading} htmlType="submit">Confirmar Pagamento →</DefaultButton>
           </Col>
         </Row>
       </form>

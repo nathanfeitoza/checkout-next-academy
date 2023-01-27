@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { Button } from 'antd';
 
 const inputStyle = css`
   padding: 18px 15px 18px 15px;
@@ -38,7 +39,7 @@ export const Label = styled.label`
   color: #B5B5B5;
   margin-bottom: .6rem;
 `;
-export const DefaultButton = styled.button`
+export const DefaultButton = styled(Button)`
   padding: 17px 0px 19px 0px; 
   text-align: center;
   background: #F35B04;
@@ -51,6 +52,9 @@ export const DefaultButton = styled.button`
   text-align: center;
   color: #FFFFFF;
   cursor: pointer;
+  border: none;
+  height: inherit;
+  border-radius: 0;
 `;
 export const SectionTitle = styled.h2`
   font-family: 'Poppins';

@@ -1,4 +1,9 @@
+import { useEffect, useState } from "react";
+import { Control, Controller, UseControllerProps } from "react-hook-form";
+
 import { Input, Label, Select } from "../../styles/Global";
+import { MaskerObject } from "../../types/maskerType";
+import { EventType } from "../../utils/masker";
 import { Container, ErrorText } from "./styles";
 
 export interface InputOptions {
@@ -8,7 +13,7 @@ export interface InputOptions {
 
 export interface InputRegisteredProps {
   name: string;
-  register: (name: string, rules?: Record<string, any>) => any;
+  control: Control<any>;
   label?: string;
   rules?: Record<string, any>;
   errors?: Record<string, any>;
@@ -17,20 +22,28 @@ export interface InputRegisteredProps {
   style?: Record<string, any>;
   type?: string;
   placeholder?: string;
+  onChange?: (event: EventType) => void;
+  onBlur?: (event: EventType) => void;
+  masker?: MaskerObject;
+  value?: any;
 }
+
+const transformValue = (value: any, masker?: MaskerObject): string => {
+  return masker ? masker.maskInput(value || "") : value;
+};
 
 const parseMessageError = (
   errorObject: { type: string; message: string },
   name: string,
   label: string
 ) => {
-  console.log(errorObject)
-  const error: any = errorObject || {}
+  console.log(errorObject);
+  const error: any = errorObject || {};
   const errorNamedObject = error[name] || {};
   const errorByType: any = {
     required: `${label || name} é obrigatório`,
-    default: `${label|| name} não é válido`
-  }
+    default: `${label || name} não é válido`,
+  };
   const type = errorNamedObject.type;
 
   if (errorNamedObject.message) {
@@ -42,32 +55,75 @@ const parseMessageError = (
 
 export const InputRegistered = ({
   name,
-  register,
   label,
   rules,
   errors,
   input_type,
   options,
   type,
+  value,
+  masker,
+  onChange,
+  onBlur,
+  control,
   ...args
 }: InputRegisteredProps) => {
+  const handleOnChange = (
+    event: EventType,
+    onChangeEvent: (value: any) => void
+  ) => {
+    onChangeEvent(event);
+    onChange && onChange(event);
+  };
+
+  const handleOnBlur = (event: any, onBlurEvent: (event: any) => void) => {
+    onBlurEvent(event);
+    onBlur && onBlur(event);
+  };
+
   return (
     <Container>
       {label && <Label>{label}</Label>}
 
-      {input_type !== "select" && (
-        <Input {...args} {...register(name, rules)} type={type || "text"} />
+      <Controller
+        control={control}
+        rules={rules}
+        render={({ field: { onChange, onBlur, value } }) => {
+          if (input_type === "select") {
+            return (
+              <Select
+                {...args}
+                value={value}
+                onChange={(event: any) => handleOnChange(event, onChange)}
+                onBlur={(event: any) => handleOnBlur(event, onBlur)}
+              >
+                {options?.map((option, index) => (
+                  <option key={index} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
+              </Select>
+            );
+          }
+
+          return (
+            <Input
+              {...args}
+              value={transformValue(value, masker)}
+              onChange={(event: any) => handleOnChange(event, onChange)}
+              onBlur={(event: any) => handleOnBlur(event, onBlur)}
+              type={type || "text"}
+            />
+          );
+        }}
+        name={name}
+      />
+
+      {(errors || {})[name] && (
+        <ErrorText>
+          {parseMessageError(errors as any, name, label as string)}
+        </ErrorText>
       )}
-      {input_type === "select" && (
-        <Select {...args} {...register(name, rules)}>
-          {options?.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </Select>
-      )}
-      {(errors || {})[name] && (<ErrorText>{parseMessageError(errors as any, name, label as string)}</ErrorText>)}
     </Container>
   );
 };

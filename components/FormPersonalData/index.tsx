@@ -1,7 +1,10 @@
-import { Layout, Row, Col } from "antd";
+import { Layout, Row, Col, notification } from "antd";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { PersonalData } from "../../models/personalData";
+import { fetchCitiesByState } from "../../services/location";
 import { DefaultButton, SectionTitle } from "../../styles/Global";
+import { cpfMask, dateMask, phoneMask } from "../../utils/mask";
 import { CenterLayout } from "../CenterLayout";
 import { InputRegistered } from "../InputRegistered";
 
@@ -10,25 +13,74 @@ export interface FormPersonalDataProps {
   initialData?: PersonalData;
 }
 
-const STATES = ["SP"]
-const CITYS: any = {
-  SP: ["Americana / SP", "São Paulo"]
-}
+const BRASIL_STATES = [
+  {value: "", label: ""},
+  { value: "AC", label: "Acre" },
+  { value: "AL", label: "Alagoas" },
+  { value: "AP", label: "Amapá" },
+  { value: "AM", label: "Amazonas" },
+  { value: "BA", label: "Bahia" },
+  { value: "CE", label: "Ceará" },
+  { value: "DF", label: "Distrito Federal" },
+  { value: "ES", label: "Espírito Santo" },
+  { value: "GO", label: "Goiás" },
+  { value: "MA", label: "Maranhão" },
+  { value: "MT", label: "Mato Grosso" },
+  { value: "MS", label: "Mato Grosso do Sul" },
+  { value: "MG", label: "Minas Gerais" },
+  { value: "PA", label: "Pará" },
+  { value: "PB", label: "Paraíba" },
+  { value: "PR", label: "Paraná" },
+  { value: "PE", label: "Pernambuco" },
+  { value: "PI", label: "Piauí" },
+  { value: "RJ", label: "Rio de Janeiro" },
+  { value: "RN", label: "Rio Grande do Norte" },
+  { value: "RS", label: "Rio Grande do Sul" },
+  { value: "RO", label: "Rondônia" },
+  { value: "RR", label: "Roraima" },
+  { value: "SC", label: "Santa Catarina" },
+  { value: "SP", label: "São Paulo" },
+  { value: "SE", label: "Sergipe" },
+  { value: "TO", label: "Tocantins" },
+];
 
 export const FormPersonalData = ({
   onContinue,
   initialData,
 }: FormPersonalDataProps) => {
   const {
-    register,
     handleSubmit,
-    watch,
+    control,
     formState: { errors },
   } = useForm({ defaultValues: initialData });
+
+  const [cities, setCities] = useState<{label: string; value: string}[]>([]);
+
+  const fetchCities = async (state: string) => {
+    try {
+      const stateCities = await fetchCitiesByState(state);
+      setCities(
+        stateCities.data.map((city) => ({ label: city.nome, value: city.nome }))
+      );
+    } catch (err) {
+      console.log(err);
+      notification.error({
+        message: 'Erro ao buscar cidades',
+        duration: 3.5,
+        description:
+          'Não foi possível buscar as cidades.',
+      });
+    }
+  };
+
   const onSubmit = (data: any) => {
-    console.log(data)
     onContinue(data);
   };
+
+  const handleChangeState = (event: any) => {
+    const state = event.target.value;
+    fetchCities(state);
+  }
 
   return (
     <CenterLayout>
@@ -41,9 +93,9 @@ export const FormPersonalData = ({
             <InputRegistered
               label="Nome"
               name="name"
-              register={register as any}
               rules={{ required: true, maxLength: 255 }}
               errors={errors}
+              control={control}
             />
           </Col>
         </Row>
@@ -51,10 +103,11 @@ export const FormPersonalData = ({
           <Col span={24}>
             <InputRegistered
               label="CPF"
-              name="document"
-              register={register as any}
+              name="cpf"
               rules={{ required: true, maxLength: 255 }}
               errors={errors}
+              control={control}
+              masker={cpfMask}
             />
           </Col>
         </Row>
@@ -63,9 +116,10 @@ export const FormPersonalData = ({
             <InputRegistered
               label="Celular / Whatsapp"
               name="phone"
-              register={register as any}
               rules={{ required: true, maxLength: 255 }}
               errors={errors}
+              control={control}
+              masker={phoneMask}
             />
           </Col>
         </Row>
@@ -74,9 +128,9 @@ export const FormPersonalData = ({
             <InputRegistered
               label="Email"
               name="email"
-              register={register as any}
               rules={{ required: true, maxLength: 255 }}
               errors={errors}
+              control={control}
             />
           </Col>
         </Row>
@@ -87,9 +141,10 @@ export const FormPersonalData = ({
               label="Data de Nascimento"
               name="birth_date"
               type="tel"
-              register={register as any}
               rules={{ required: true, maxLength: 255 }}
               errors={errors}
+              control={control}
+              masker={dateMask}
             />
           </Col>
           <Col span={8}>
@@ -97,10 +152,13 @@ export const FormPersonalData = ({
               label="Sexo"
               name="genre"
               input_type="select"
-              options={[{ label: "Masculino", value: "M" }, {label: "Feminino", value: "F"}]}
-              register={register as any}
+              options={[
+                { label: "Masculino", value: "M" },
+                { label: "Feminino", value: "F" },
+              ]}
               rules={{ required: true }}
               errors={errors}
+              control={control}
             />
           </Col>
         </Row>
@@ -110,10 +168,11 @@ export const FormPersonalData = ({
               label="Estado"
               name="state"
               input_type="select"
-              options={STATES.map(state => ({ label: state, value: state }))}
-              register={register as any}
+              options={BRASIL_STATES}
+              onChange={handleChangeState}
               rules={{ required: true }}
               errors={errors}
+              control={control}
             />
           </Col>
         </Row>
@@ -123,20 +182,19 @@ export const FormPersonalData = ({
               label="Cidade"
               name="city"
               input_type="select"
-              options={CITYS[watch("state") || "SP"].map((city: any) => ({ label: city, value: city }))}
-              register={register as any}
+              options={cities}
               rules={{ required: true }}
               errors={errors}
+              control={control}
             />
           </Col>
         </Row>
 
         <Row className="input-row">
           <Col span={24}>
-            <DefaultButton type="submit">Continuar →</DefaultButton>
+            <DefaultButton htmlType="submit">Continuar →</DefaultButton>
           </Col>
         </Row>
-
       </form>
     </CenterLayout>
   );

@@ -1,10 +1,11 @@
 import { Col, Row } from "antd";
 import { useState } from "react";
+import { cardCvvMask, cardDueMask, cardNumberMask } from "../../utils/mask";
 import { InputRegistered } from "../InputRegistered";
 import { ItemContainer } from "./styles";
 
 export interface CardFormProps {
-  register: any;
+  control: any;
   errors: any;
   watch: any;
 }
@@ -12,47 +13,47 @@ export interface CardFormProps {
 const DEFAULT_INSTALLMENTS = [
   {
     label: "R$297 - A vista (sem juros)",
-    value: "vista",
+    value: "1",
   },
   {
-    label: "2x R$xx (com juros)",
+    label: "2",
     value: "2",
   },
   {
-    label: "3x R$xx (com juros)",
+    label: "3",
     value: "3",
   },
   {
-    label: "4x R$xx (com juros)",
+    label: "4",
     value: "4",
   },
   {
-    label: "5x R$xx (com juros)",
+    label: "5",
     value: "5",
   },
   {
-    label: "6x R$xx (com juros)",
+    label: "6",
     value: "6",
   },
   {
-    label: "7x R$xx (com juros)",
+    label: "7",
     value: "7",
   },
   {
-    label: "8x R$xx (com juros)",
+    label: "8",
     value: "8",
   },
   {
-    label: "9x R$xx (com juros)",
+    label: "9",
     value: "9",
   },
   {
-    label: "10x R$xx (com juros)",
+    label: "10",
     value: "10",
   },
 ];
 
-export const CardForm = ({ register, errors, watch }: CardFormProps) => {
+export const CardForm = ({ control, errors }: CardFormProps) => {
   const [installments, setInstallments] = useState(DEFAULT_INSTALLMENTS);
 
   return (
@@ -63,8 +64,8 @@ export const CardForm = ({ register, errors, watch }: CardFormProps) => {
             label="Nome que consta no cartão"
             placeholder="Nome no cartão"
             style={{ width: "100%" }}
-            name="card_name"
-            register={register}
+            name="card_holder_name"
+            control={control}
             rules={{ required: true, maxLength: 255 }}
             errors={errors}
           />
@@ -77,9 +78,10 @@ export const CardForm = ({ register, errors, watch }: CardFormProps) => {
             placeholder="5555 5555 5555 5555"
             style={{ width: "100%" }}
             name="card_number"
-            register={register}
+            control={control}
             rules={{ required: true, maxLength: 255 }}
             errors={errors}
+            masker={cardNumberMask}
           />
         </Col>
       </Row>
@@ -89,10 +91,11 @@ export const CardForm = ({ register, errors, watch }: CardFormProps) => {
             style={{ width: "93%" }}
             label="Data de Validade"
             placeholder="MM/AAAA"
-            name="card_due_date"
-            register={register as any}
+            name="card_expiration_date"
+            control={control}
             rules={{ required: true, maxLength: 255 }}
             errors={errors}
+            masker={cardDueMask}
           />
         </Col>
         <Col span={6}>
@@ -101,9 +104,10 @@ export const CardForm = ({ register, errors, watch }: CardFormProps) => {
             style={{ width: "100%" }}
             name="card_cvv"
             placeholder="999"
-            register={register as any}
-            rules={{ required: true, maxLength: 255 }}
+            control={control}
+            rules={{ required: true, maxLength: 4 }}
             errors={errors}
+            masker={cardCvvMask}
           />
         </Col>
       </Row>
@@ -111,11 +115,11 @@ export const CardForm = ({ register, errors, watch }: CardFormProps) => {
         <Col span={24}>
           <InputRegistered
             label="Parcelamento"
-            name="card_installments"
+            name="installments"
             style={{ width: "100%" }}
             options={installments}
             input_type="select"
-            register={register}
+            control={control}
             rules={{ required: true, maxLength: 255 }}
             errors={errors}
           />
