@@ -7,7 +7,7 @@ export interface ConfirmPaymentProps {
 }
 
 export const ConfirmPayment = ({ paymentData }: ConfirmPaymentProps) => {
-  return paymentData.type === "card" ? (
+  return paymentData.type === "credit_card" ? (
     <Card />
   ) : (
     <Pix pixData={paymentData.pix_payment as PixPayment} />

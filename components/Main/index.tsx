@@ -54,8 +54,10 @@ export const Main: React.FC = () => {
           "number",
           "complement",
           "zipcode",
+          "state",
+          "city"
         ]),
-        ...(paymentData.type === "card" ? paymentData : {}),
+        ...(paymentData.type === "credit_card" ? paymentData : {}),
       };
       paymentDataSend.value = PRODUCT_VALUE;
       paymentDataSend.method = paymentDataSend.type || "pix";
@@ -64,12 +66,22 @@ export const Main: React.FC = () => {
 
       paymentDataSend.phone_area_code = paymentDataSend.phone_number.slice(0, 2);
       paymentDataSend.phone_number = paymentDataSend.phone_number.slice(2,paymentDataSend.phone_number.length);
+      paymentDataSend.card_holder_cpf = paymentDataSend.cpf;
+
+      if (paymentDataSend.card_expiration_date) {
+        const [card_expiration_month, card_expiration_year] = paymentDataSend.card_expiration_date.split('/')
+        
+        paymentDataSend.card_expiration_year = card_expiration_year
+        paymentDataSend.card_expiration_month = card_expiration_month
+        
+        delete paymentDataSend.card_expiration_date;
+      }
 
       delete paymentDataSend.type;
 
       const { data } = await pay(paymentDataSend);
 
-      if (data?.message === "payment_error") {
+      if (data?.message === "payment_error" || (data?.data || {})?.status === "not_authorized") {
         console.log(data);
         notification.error({
           message: "Erro ao processar pagamento",

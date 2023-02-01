@@ -14,5 +14,5 @@ export interface PixPayment {
 export interface PaymentData {
   card_payment?: CardPayment,
   pix_payment?: PixPayment,
-  type: "card" | "pix";
+  type: "credit_card" | "pix";
 }

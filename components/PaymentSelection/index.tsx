@@ -21,7 +21,7 @@ export interface PaymentSelectionProps {
 }
 
 const PAYMENTS_TYPES = {
-  card: {
+  credit_card: {
     label: "Cartão de crédito",
     children: (control: any, errors: any, watch: any) => (
       <CardForm watch={watch} control={control} errors={errors} />
