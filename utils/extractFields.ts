@@ -9,6 +9,5 @@ export const ExtractFields = (
       data[key] = value;
     }
   })
-  console.log('dasdasd', data)
   return data;
 };

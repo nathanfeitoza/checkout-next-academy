@@ -158,7 +158,7 @@ export const FormPersonalData = ({
           <Col span={24}>
             <InputRegistered
               label="Celular / Whatsapp"
-              name="phone"
+              name="phone_number"
               rules={{ required: true, maxLength: 255 }}
               errors={errors}
               control={control}

@@ -33,7 +33,6 @@ export const Main: React.FC = () => {
   const [loading, setLoading] = useState(false);
 
   const onContinuePersonalData = (personalData: PersonalData) => {
-    console.log(personalData);
     setActualForm("payment");
     setActualStep(actualStep + 1);
     setPersonalData(personalData);
@@ -43,11 +42,11 @@ export const Main: React.FC = () => {
     setLoading(true);
 
     try {
-      const keysOnlyNumbers = ["phone", "cpf", "card_number", "card_cvv", "zipcode"]
+      const keysOnlyNumbers = ["phone_number", "cpf", "card_number", "card_cvv", "zipcode"]
       const paymentDataSend: any = {
         ...ExtractFields(personalData, [
           "name",
-          "phone",
+          "phone_number",
           "email",
           "cpf",
           "neighborhood",
@@ -63,8 +62,8 @@ export const Main: React.FC = () => {
 
       keysOnlyNumbers.map((item) => paymentDataSend[item] = OnlyNumber(paymentDataSend[item]));
 
-      paymentDataSend.phone_area_code = paymentDataSend.phone.slice(0, 2);
-      paymentDataSend.phone = paymentDataSend.phone.slice(2,paymentDataSend.phone.length);
+      paymentDataSend.phone_area_code = paymentDataSend.phone_number.slice(0, 2);
+      paymentDataSend.phone_number = paymentDataSend.phone_number.slice(2,paymentDataSend.phone_number.length);
 
       delete paymentDataSend.type;
 
@@ -84,7 +83,10 @@ export const Main: React.FC = () => {
       setHeaderTitle(null as any);
       setHeaderSubtitle(null as any);
       setActualForm(null as any);
-      setPaymentSuccefullData(paymentData as any);
+      setPaymentSuccefullData({...paymentData, pix_payment: {
+        img_url: data?.data?.qr_code_url,
+        copy_and_paste_code: data?.data?.qr_code,
+      }} as any);
     } catch (err) {
       console.log(err);
       notification.error({
