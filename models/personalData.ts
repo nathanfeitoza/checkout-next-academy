@@ -7,4 +7,8 @@ export interface PersonalData {
   genre: "M" | "F";
   state: string;
   city: string;
+  address: string;
+  zipcode: string;
+  neighborhood: string;
+  complement: string;
 }

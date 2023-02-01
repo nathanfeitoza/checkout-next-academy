@@ -10,6 +10,7 @@ import { ConfirmPayment } from "../ConfirmPayment";
 import { PRODUCT_VALUE } from "../../constants";
 import { pay } from "../../services/payment";
 import { ExtractFields } from "../../utils/extractFields";
+import { OnlyNumber } from "../../utils/onlyNumber";
 
 const { Content, Footer } = Layout;
 
@@ -42,17 +43,43 @@ export const Main: React.FC = () => {
     setLoading(true);
 
     try {
+      const keysOnlyNumbers = ["phone", "cpf", "card_number", "card_cvv", "zipcode"]
       const paymentDataSend: any = {
-        ...ExtractFields(personalData, ["name", "phone", "email", "cpf"]),
+        ...ExtractFields(personalData, [
+          "name",
+          "phone",
+          "email",
+          "cpf",
+          "neighborhood",
+          "address",
+          "number",
+          "complement",
+          "zipcode",
+        ]),
         ...(paymentData.type === "card" ? paymentData : {}),
       };
       paymentDataSend.value = PRODUCT_VALUE;
-      paymentDataSend.method = paymentDataSend.type;
-      paymentDataSend.address = `${personalData.city} - ${personalData.state}`;
-      
+      paymentDataSend.method = paymentDataSend.type || "pix";
+
+      keysOnlyNumbers.map((item) => paymentDataSend[item] = OnlyNumber(paymentDataSend[item]));
+
+      paymentDataSend.phone_area_code = paymentDataSend.phone.slice(0, 2);
+      paymentDataSend.phone = paymentDataSend.phone.slice(2,paymentDataSend.phone.length);
+
       delete paymentDataSend.type;
 
-      await pay(paymentDataSend);
+      const { data } = await pay(paymentDataSend);
+
+      if (data?.message === "payment_error") {
+        console.log(data);
+        notification.error({
+          message: "Erro ao processar pagamento",
+          duration: 3.5,
+          description:
+            "Ocorreu um erro ao realizar o pagamento. Tente novamente mais tarde.",
+        });
+        return;
+      }
 
       setHeaderTitle(null as any);
       setHeaderSubtitle(null as any);
@@ -61,10 +88,10 @@ export const Main: React.FC = () => {
     } catch (err) {
       console.log(err);
       notification.error({
-        message: 'Erro ao processar pagamento',
+        message: "Erro ao processar pagamento",
         duration: 3.5,
         description:
-          'Ocorreu um erro ao realizar o pagamento. Tente novamente mais tarde.',
+          "Ocorreu um erro ao realizar o pagamento. Tente novamente mais tarde.",
       });
     } finally {
       setLoading(false);

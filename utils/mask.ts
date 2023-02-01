@@ -140,6 +140,18 @@ export const cardCvvMask = masker({
   }
 });
 
+export const zipCodeMask = masker({
+  masked: {
+    mask: "00000-000",
+    transform: (value: string) => {
+      return zipCodeMask.unmask(value);
+    },
+    maskDefault: (value: number) => {
+      return zipCodeMask.mask(value);
+    }
+  }
+});
+
 export const phoneMask = masker({
   masked: {
     mask: [

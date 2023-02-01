@@ -1,10 +1,11 @@
 import { Layout, Row, Col, notification } from "antd";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { useForm, useWatch } from "react-hook-form";
 import { PersonalData } from "../../models/personalData";
-import { fetchCitiesByState } from "../../services/location";
+import { fetchCitiesByState, fetchLocationByZipCode } from "../../services/location";
 import { DefaultButton, SectionTitle } from "../../styles/Global";
-import { cpfMask, dateMask, phoneMask } from "../../utils/mask";
+import { cpfMask, dateMask, phoneMask, zipCodeMask } from "../../utils/mask";
+import { OnlyNumber } from "../../utils/onlyNumber";
 import { CenterLayout } from "../CenterLayout";
 import { InputRegistered } from "../InputRegistered";
 
@@ -51,10 +52,12 @@ export const FormPersonalData = ({
   const {
     handleSubmit,
     control,
+    setValue,
     formState: { errors },
   } = useForm({ defaultValues: initialData });
 
   const [cities, setCities] = useState<{label: string; value: string}[]>([]);
+  const [defaultCity, setDefaultCity] = useState('');
 
   const fetchCities = async (state: string) => {
     try {
@@ -62,6 +65,14 @@ export const FormPersonalData = ({
       setCities(
         stateCities.data.map((city) => ({ label: city.nome, value: city.nome }))
       );
+
+      if (defaultCity) {
+        setTimeout(() => {
+          setValue('city', defaultCity);
+
+          setDefaultCity('');
+        }, 50)
+      }
     } catch (err) {
       console.log(err);
       notification.error({
@@ -73,14 +84,46 @@ export const FormPersonalData = ({
     }
   };
 
+  const handleBlurZipCode = async (event: any) => {
+    setDefaultCity('');
+
+    try {
+      const { data } = await fetchLocationByZipCode(OnlyNumber(event.target.value));
+
+      setDefaultCity(data.localidade)
+
+      setValue('state', data.uf)
+      setValue('neighborhood', data.bairro)
+      setValue('address', data.logradouro)
+    } catch(err) {
+      console.log(err);
+      notification.error({
+        message: "Erro ao buscar localização pelo cep",
+          duration: 3.5,
+          description:
+            "Ocorreu um erro ao buscar localização pelo cep. Mas, você pode digitar os dados manualmente",
+      })
+    }
+  }
+
   const onSubmit = (data: any) => {
     onContinue(data);
   };
 
-  const handleChangeState = (event: any) => {
-    const state = event.target.value;
+  const handleChangeState = (state: string) => {
     fetchCities(state);
   }
+
+  const watchState = useWatch({
+    control,
+    name: 'state'
+  })
+
+  useEffect(() => {
+    if (watchState) {
+      handleChangeState(watchState)
+    }
+  }, [watchState])
 
   return (
     <CenterLayout>
@@ -128,6 +171,7 @@ export const FormPersonalData = ({
             <InputRegistered
               label="Email"
               name="email"
+              type="email"
               rules={{ required: true, maxLength: 255 }}
               errors={errors}
               control={control}
@@ -165,11 +209,23 @@ export const FormPersonalData = ({
         <Row className="input-row">
           <Col span={24}>
             <InputRegistered
+              label="CEP"
+              name="zipcode"
+              rules={{ required: true }}
+              errors={errors}
+              control={control}
+              masker={zipCodeMask}
+              onBlur={handleBlurZipCode}
+            />
+          </Col>
+        </Row>
+        <Row className="input-row">
+          <Col span={24}>
+            <InputRegistered
               label="Estado"
               name="state"
               input_type="select"
               options={BRASIL_STATES}
-              onChange={handleChangeState}
               rules={{ required: true }}
               errors={errors}
               control={control}
@@ -184,6 +240,54 @@ export const FormPersonalData = ({
               input_type="select"
               options={cities}
               rules={{ required: true }}
+              errors={errors}
+              control={control}
+            />
+          </Col>
+        </Row>
+        <Row className="input-row">
+          <Col span={24}>
+          <InputRegistered
+              label="Bairro"
+              name="neighborhood"
+              type="text"
+              rules={{ required: true, maxLength: 255 }}
+              errors={errors}
+              control={control}
+            />
+          </Col>
+        </Row>
+        <Row className="input-row">
+          <Col span={24}>
+          <InputRegistered
+              label="Logradouro"
+              name="address"
+              type="text"
+              rules={{ required: true, maxLength: 255 }}
+              errors={errors}
+              control={control}
+            />
+          </Col>
+        </Row>
+        <Row className="input-row">
+          <Col span={24}>
+          <InputRegistered
+              label="Número"
+              name="number"
+              type="tel"
+              rules={{ required: true, maxLength: 6 }}
+              errors={errors}
+              control={control}
+            />
+          </Col>
+        </Row>
+        <Row className="input-row">
+          <Col span={24}>
+          <InputRegistered
+              label="Complemento"
+              name="complement"
+              type="text"
+              rules={{ maxLength: 255 }}
               errors={errors}
               control={control}
             />
