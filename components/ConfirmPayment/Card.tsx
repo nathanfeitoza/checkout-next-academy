@@ -9,8 +9,22 @@ import {
 } from "./styles";
 import { Footer } from "./Footer";
 import Image from "next/image";
+import { useEffect } from "react";
+import { Pixel } from "../../services/pixel";
 
 export const Card = () => {
+  const tiggerEvent = async () => {
+      const fbPixel = await Pixel();
+      console.log("Compra")
+
+      fbPixel.trackCustom('Compra');
+      fbPixel.track('Compra');
+  }
+
+  useEffect(() => {
+    tiggerEvent();
+  }, []);
+
   return (
     <CenterLayout>
       <Container>

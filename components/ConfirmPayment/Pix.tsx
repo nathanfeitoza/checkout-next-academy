@@ -1,5 +1,7 @@
 import { Col, Row } from "antd";
+import { useEffect } from "react";
 import { PixPayment } from "../../models/paymentData";
+import { Pixel } from "../../services/pixel";
 import { CenterLayout } from "../CenterLayout";
 import { Footer } from "./Footer";
 import { ConfirmSubtitle, ConfirmTitle, Container } from "./styles";
@@ -9,7 +11,18 @@ export interface PixProps {
 }
 
 export const Pix = ({ pixData }: PixProps) => {
-  console.log(pixData)
+  const tiggerEvent = async () => {
+    const fbPixel = await Pixel();
+    console.log("CompraPix")
+
+    fbPixel.trackCustom('CompraPix');
+    fbPixel.track('CompraPix');
+  }
+
+  useEffect(() => {
+    tiggerEvent();
+  }, []);
+
   return (
     <CenterLayout>
       <Container>

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { PersonalData } from "../../models/personalData";
 import { fetchCitiesByState, fetchLocationByZipCode } from "../../services/location";
+import { Pixel } from "../../services/pixel";
 import { DefaultButton, SectionTitle } from "../../styles/Global";
 import { cpfMask, dateMask, phoneMask, zipCodeMask } from "../../utils/mask";
 import { OnlyNumber } from "../../utils/onlyNumber";
@@ -53,6 +54,7 @@ export const FormPersonalData = ({
     handleSubmit,
     control,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm({ defaultValues: initialData });
 
@@ -124,6 +126,17 @@ export const FormPersonalData = ({
       handleChangeState(watchState)
     }
   }, [watchState])
+
+  const handlePressContinue = async () => {
+    const fbPixel = await Pixel();
+    const formData = getValues();
+    console.log("Initiate checkout")
+    fbPixel.trackCustom('Initiate Checkout', formData);
+    fbPixel.trackCustom('InitiateCheckout', formData);
+    
+    fbPixel.track('Initiate Checkout', formData);
+    fbPixel.track('InitiateCheckout', formData);
+  }
 
   return (
     <CenterLayout>
@@ -296,7 +309,7 @@ export const FormPersonalData = ({
 
         <Row className="input-row">
           <Col span={24}>
-            <DefaultButton htmlType="submit">Continuar →</DefaultButton>
+            <DefaultButton onClick={handlePressContinue} htmlType="submit">Continuar →</DefaultButton>
           </Col>
         </Row>
       </form>

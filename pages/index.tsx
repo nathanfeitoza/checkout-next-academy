@@ -1,8 +1,17 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import { useEffect } from 'react'
 import { Main } from '../components/Main'
+import { Pixel } from '../services/pixel'
 
 const Home: NextPage = () => {
+  useEffect(() => {
+    Pixel().then((fbPixel) => {
+      console.log('page view')
+      fbPixel.pageView()
+    })
+  }, []);
+
   return (
     <>
       <Head>
