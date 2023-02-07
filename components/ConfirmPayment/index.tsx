@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { PaymentData, PixPayment } from "../../models/paymentData";
 import { Card } from "./Card";
 import { Pix } from "./Pix";
@@ -7,9 +8,15 @@ export interface ConfirmPaymentProps {
 }
 
 export const ConfirmPayment = ({ paymentData }: ConfirmPaymentProps) => {
-  return paymentData.type === "credit_card" ? (
+  const [pixPaid, setPixPaid] = useState(false);
+
+  const handlePixPaid = () => {
+    setPixPaid(true);
+  }
+
+  return paymentData.type === "credit_card" || pixPaid ? (
     <Card />
   ) : (
-    <Pix pixData={paymentData.pix_payment as PixPayment} />
+    <Pix onPixPaid={handlePixPaid} pixData={paymentData.pix_payment as PixPayment} />
   );
 };

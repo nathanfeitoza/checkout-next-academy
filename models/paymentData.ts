@@ -9,6 +9,7 @@ export interface CardPayment {
 export interface PixPayment {
   img_url: string;
   copy_and_paste_code: string;
+  handoutId: string;
 }
 
 export interface PaymentData {

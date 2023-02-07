@@ -12,8 +12,6 @@ import { pay } from "../../services/payment";
 import { ExtractFields } from "../../utils/extractFields";
 import { OnlyNumber } from "../../utils/onlyNumber";
 
-const { Content, Footer } = Layout;
-
 const DEFAULT_TITLE_HEADER = {
   title: "Falta pouco pra você dar um show em campo.",
   subtitle: "Preencha seus dados pessoais para continuar",
@@ -98,6 +96,7 @@ export const Main: React.FC = () => {
       setPaymentSuccefullData({...paymentData, pix_payment: {
         img_url: data?.data?.qr_code_url,
         copy_and_paste_code: data?.data?.qr_code,
+        handoutId: data.handout.id
       }} as any);
     } catch (err) {
       console.log(err);
@@ -112,6 +111,11 @@ export const Main: React.FC = () => {
     }
   };
 
+  const handleOnBack = (step: number) => {
+    setActualForm("personal");
+    setActualStep(step - 1);
+  }
+
   return (
     <Layout style={{ background: "#171717" }}>
       <Header>
@@ -120,6 +124,7 @@ export const Main: React.FC = () => {
           subtitle={headerSubtitle}
           actualStep={actualStep}
           stepsCount={STEPS_COUNT}
+          onBack={handleOnBack}
         />
       </Header>
       <Container>

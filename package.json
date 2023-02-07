@@ -13,6 +13,7 @@
     "@types/styled-components": "^5.1.26",
     "antd": "^4.24.5",
     "axios": "^1.2.5",
+    "copy-to-clipboard": "^3.3.3",
     "date-fns": "^2.29.3",
     "imask": "^6.4.3",
     "next": "13.0.6",

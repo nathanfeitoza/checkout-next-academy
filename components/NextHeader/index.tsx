@@ -8,6 +8,7 @@ export interface NextHeaderProps {
   subtitle?: string;
   stepsCount?: number;
   actualStep?: number;
+  onBack?: (actualStep: number) => void;
 }
 
 export const NextHeader = ({
@@ -15,7 +16,14 @@ export const NextHeader = ({
   subtitle,
   stepsCount,
   actualStep,
+  onBack,
 }: NextHeaderProps) => {
+  const isPaymentStep = actualStep === 3;
+
+  const handleClickBack = () => {
+    onBack && onBack(actualStep as number);
+  }
+
   return (
     <CenterLayout>
       {title && (
@@ -39,18 +47,34 @@ export const NextHeader = ({
             <Col span={12}>
               <TitleText>{title}</TitleText>
             </Col>
-            </Row>
-          <Row style={{ paddingBottom: "2rem" }}>
+          </Row>
+          <Row style={{ paddingBottom: isPaymentStep ? "0.5rem" : "2rem" }}>
             <Col span={12}>
               <SubtitleText>{subtitle}</SubtitleText>
             </Col>
           </Row>
+          {isPaymentStep && (
+            <Row style={{ paddingBottom: "2rem" }}>
+              <Col span={12}>
+                <SubtitleText onClick={handleClickBack} style={{ cursor: "pointer", color: "#b1b1b1" }}>
+                  ← Voltar
+                </SubtitleText>
+              </Col>
+            </Row>
+          )}
         </>
       )}
 
       {!title && (
         <Row style={{ paddingTop: "6rem", paddingBottom: "9rem" }}>
-          <Col style={{ alignItems: "center", justifyContent: "center", display: "flex" }} span={24}>
+          <Col
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              display: "flex",
+            }}
+            span={24}
+          >
             <Image
               alt="Logo Next Academy"
               width={119}
