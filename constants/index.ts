@@ -1,1 +1,1 @@
-export const PRODUCT_VALUE = 0.1;
+export const PRODUCT_VALUE = 297;
