@@ -116,6 +116,11 @@ export const Pix = ({ pixData, onPixPaid }: PixProps) => {
         </Row>
         <Row style={{ marginTop: "0rem", marginBottom: "1rem" }}>
           <ConfirmTitle style={{ fontSize: "14px", fontWeight: 400 }}>
+            <p style={{ marginBottom: "2rem" }}>APÓS REALIZAR O PAGAMENTO, AGUARDE, VOCÊ SERÁ DIRECIONADO PARA A PÁGINA DE CONFIRMAÇÃO.</p>
+          </ConfirmTitle>
+        </Row>
+        <Row style={{ marginTop: "0rem", marginBottom: "1rem" }}>
+          <ConfirmTitle style={{ fontSize: "14px", fontWeight: 400 }}>
             <p style={{ margin: 0 }}>Escaneie o QR CODE e realize o</p>{" "}
             <p>pagamento para finalizar sua inscrição!</p>
           </ConfirmTitle>
