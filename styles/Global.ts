@@ -55,6 +55,12 @@ export const DefaultButton = styled(Button)`
   border: none;
   height: inherit;
   border-radius: 0;
+
+  @media only screen and (max-width: 768px) {
+    & {
+      width: 100%;
+    }
+  }
 `;
 export const SectionTitle = styled.h2`
   font-family: 'Poppins';

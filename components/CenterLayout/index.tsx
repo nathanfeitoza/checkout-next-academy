@@ -1,12 +1,22 @@
 import React from "react";
 import { Col, Row } from "antd";
 
-export const CenterLayout = ({ children }: {children: any}) => {
+export interface CenterLayoutProps {
+  children: any;
+  span?: number;
+  offset?: number;
+}
+
+export const CenterLayout = ({
+  children,
+  span = 11,
+  offset = 7,
+}: CenterLayoutProps) => {
   return (
     <Row className="row-center">
-      <Col span={11} offset={7}>
-        { children }
+      <Col span={span} offset={offset}>
+        {children}
       </Col>
     </Row>
-  )
-}
+  );
+};

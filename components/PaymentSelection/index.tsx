@@ -1,9 +1,10 @@
-import { Col, Radio, Row } from "antd";
+import { Col, notification, Radio, Row } from "antd";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { PaymentData } from "../../models/paymentData";
 import { DefaultButton, SectionTitle } from "../../styles/Global";
 import { CenterLayout } from "../CenterLayout";
+import { PixInformation } from "../PixInformation";
 import { CardForm } from "./CardForm";
 import {
   ItemContainer,
@@ -18,6 +19,7 @@ import {
 export interface PaymentSelectionProps {
   onPay: (paymentData: PaymentData) => any;
   loading: boolean;
+  useContinue?: boolean;
 }
 
 const PAYMENTS_TYPES = {
@@ -31,19 +33,19 @@ const PAYMENTS_TYPES = {
     label: "Pix",
     children: () => (
       <>
-        <PixTitle style={{ marginTop: "-.2rem" }}>
-          Ao finalizar a compra, iremos gerar o código Pix para pagamento.
-        </PixTitle>
-        <PixTitle style={{ paddingBottom: "2rem" }}>
-          Nosso sistema detecta automaticamente o pagamento sem precisar enviar
-          comprovantes.
-        </PixTitle>
+        <div style={{ marginTop: "-.2rem" }}>
+          <PixInformation />
+        </div>
       </>
     ),
   },
 };
 
-export const PaymentSelection = ({ onPay, loading }: PaymentSelectionProps) => {
+export const PaymentSelection = ({
+  onPay,
+  loading,
+  useContinue = true,
+}: PaymentSelectionProps) => {
   const {
     control,
     handleSubmit,
@@ -51,6 +53,15 @@ export const PaymentSelection = ({ onPay, loading }: PaymentSelectionProps) => {
     formState: { errors },
   } = useForm({ defaultValues: { installments: 1 } });
   const onSubmit = (data: any) => {
+    if (!selectedPayment) {
+      notification.error({
+        message: "Selecione uma forma de pagamento",
+        duration: 3.5,
+        description: "É necessário escolher uma forma de pagamento",
+      });
+      return;
+    }
+
     if (selectedPayment === "pix") {
       data = {
         pix_payment: {
@@ -106,7 +117,14 @@ export const PaymentSelection = ({ onPay, loading }: PaymentSelectionProps) => {
         </Row>
         <Row style={{ marginTop: "2rem" }} className="input-row">
           <Col span={24}>
-            <DefaultButton loading={loading} htmlType="submit">Confirmar Pagamento →</DefaultButton>
+            <DefaultButton
+              id="button-confirm-payment"
+              loading={loading}
+              htmlType="submit"
+              hidden={!useContinue}
+            >
+              Confirmar Pagamento →
+            </DefaultButton>
           </Col>
         </Row>
       </form>

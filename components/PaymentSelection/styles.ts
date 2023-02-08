@@ -8,9 +8,11 @@ export const PaymentPriceContainer = styled.div`
   width: 70%;
 
   @media only screen and (max-width: 768px) {
-    width: 100%;
-    flex-direction: column;
-    justify-content: center;
+    & {
+      width: 100%;
+      flex-direction: column;
+      justify-content: center;
+    }
 
     h1 {
       width: 100%;
@@ -33,6 +35,12 @@ export const PaymentTypeContainer = styled.div`
   flex-direction: column;
   gap: 1rem;
   align-items: center;
+
+  @media only screen and (max-width: 768px) {
+    & {
+      width: 100%;
+    }
+  }
 `;
 
 export const PaymentTypeItem = styled.div`

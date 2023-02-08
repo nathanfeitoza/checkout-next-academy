@@ -27,6 +27,9 @@ export const ConfirmSubtitle = styled.p`
   line-height: 21px;
   text-align: center;
   color: #777777;
+  white-space: break-spaces;
+  word-break: break-all;
+  overflow: hidden;
 `;
 
 export const TitleGoToTrain = styled.p`
@@ -37,6 +40,9 @@ export const TitleGoToTrain = styled.p`
   line-height: 119.2%;
   text-align: center;
   color: #ffffff;
+  white-space: break-spaces;
+  word-break: break-all;
+  overflow: hidden;
 `;
 
 export const FooterTitle = styled.p`

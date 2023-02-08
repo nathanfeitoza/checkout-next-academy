@@ -1,8 +1,11 @@
 import { Layout, Row, Col, notification } from "antd";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { PersonalData } from "../../models/personalData";
-import { fetchCitiesByState, fetchLocationByZipCode } from "../../services/location";
+import {
+  fetchCitiesByState,
+  fetchLocationByZipCode,
+} from "../../services/location";
 import { Pixel } from "../../services/pixel";
 import { DefaultButton, SectionTitle } from "../../styles/Global";
 import { cpfMask, dateMask, phoneMask, zipCodeMask } from "../../utils/mask";
@@ -13,10 +16,13 @@ import { InputRegistered } from "../InputRegistered";
 export interface FormPersonalDataProps {
   onContinue: (personalData: PersonalData) => void;
   initialData?: PersonalData;
+  onDataChange?: (data: PersonalData) => void;
+  useContinue?: boolean;
+  onRefSubmit?: any;
 }
 
 const BRASIL_STATES = [
-  {value: "", label: ""},
+  { value: "", label: "" },
   { value: "AC", label: "Acre" },
   { value: "AL", label: "Alagoas" },
   { value: "AP", label: "Amapá" },
@@ -49,7 +55,11 @@ const BRASIL_STATES = [
 export const FormPersonalData = ({
   onContinue,
   initialData,
+  onDataChange,
+  useContinue = true,
+  onRefSubmit,
 }: FormPersonalDataProps) => {
+  const ref = useRef();
   const {
     handleSubmit,
     control,
@@ -58,8 +68,9 @@ export const FormPersonalData = ({
     formState: { errors },
   } = useForm({ defaultValues: initialData });
 
-  const [cities, setCities] = useState<{label: string; value: string}[]>([]);
-  const [defaultCity, setDefaultCity] = useState('');
+  const [cities, setCities] = useState<{ label: string; value: string }[]>([]);
+  const [defaultCity, setDefaultCity] = useState("");
+  const [enableAddress, setEnableAddress] = useState(false);
 
   const fetchCities = async (state: string) => {
     try {
@@ -70,43 +81,52 @@ export const FormPersonalData = ({
 
       if (defaultCity) {
         setTimeout(() => {
-          setValue('city', defaultCity);
+          setValue("city", defaultCity);
 
-          setDefaultCity('');
-        }, 50)
+          setDefaultCity("");
+        }, 50);
       }
     } catch (err) {
       console.log(err);
       notification.error({
-        message: 'Erro ao buscar cidades',
+        message: "Erro ao buscar cidades",
         duration: 3.5,
-        description:
-          'Não foi possível buscar as cidades.',
+        description: "Não foi possível buscar as cidades.",
       });
     }
   };
 
   const handleBlurZipCode = async (event: any) => {
-    setDefaultCity('');
+    const cepValue = event.target.value;
+
+    if (!cepValue) {
+      return;
+    }
+
+    setDefaultCity("");
 
     try {
-      const { data } = await fetchLocationByZipCode(OnlyNumber(event.target.value));
+      const { data } = await fetchLocationByZipCode(
+        OnlyNumber(event.target.value)
+      );
 
-      setDefaultCity(data.localidade)
+      setDefaultCity(data.localidade);
 
-      setValue('state', data.uf)
-      setValue('neighborhood', data.bairro)
-      setValue('address', data.logradouro)
-    } catch(err) {
+      setValue("state", data.uf);
+      setValue("neighborhood", data.bairro);
+      setValue("address", data.logradouro);
+    } catch (err) {
       console.log(err);
       notification.error({
         message: "Erro ao buscar localização pelo cep",
-          duration: 3.5,
-          description:
-            "Ocorreu um erro ao buscar localização pelo cep. Mas, você pode digitar os dados manualmente",
-      })
+        duration: 3.5,
+        description:
+          "Ocorreu um erro ao buscar localização pelo cep. Mas, você pode digitar os dados manualmente",
+      });
+    } finally {
+      setEnableAddress(true);
     }
-  }
+  };
 
   const onSubmit = (data: any) => {
     onContinue(data);
@@ -114,29 +134,35 @@ export const FormPersonalData = ({
 
   const handleChangeState = (state: string) => {
     fetchCities(state);
-  }
+  };
 
   const watchState = useWatch({
     control,
-    name: 'state'
-  })
+    name: "state",
+  });
+
+  const watchAll = useWatch({ control });
 
   useEffect(() => {
     if (watchState) {
-      handleChangeState(watchState)
+      handleChangeState(watchState);
     }
-  }, [watchState])
+  }, [watchState]);
+
+  useEffect(() => {
+    onDataChange && onDataChange(watchAll as PersonalData);
+  }, [watchAll]);
 
   const handlePressContinue = async () => {
     const fbPixel = await Pixel();
     const formData = getValues();
-    console.log("Initiate checkout")
-    fbPixel.trackCustom('Initiate Checkout', formData);
-    fbPixel.trackCustom('InitiateCheckout', formData);
-    
-    fbPixel.track('Initiate Checkout', formData);
-    fbPixel.track('InitiateCheckout', formData);
-  }
+    console.log("Initiate checkout");
+    fbPixel.trackCustom("Initiate Checkout", formData);
+    fbPixel.trackCustom("InitiateCheckout", formData);
+
+    fbPixel.track("Initiate Checkout", formData);
+    fbPixel.track("InitiateCheckout", formData);
+  };
 
   return (
     <CenterLayout>
@@ -232,84 +258,95 @@ export const FormPersonalData = ({
             />
           </Col>
         </Row>
-        <Row className="input-row">
-          <Col span={24}>
-            <InputRegistered
-              label="Estado"
-              name="state"
-              input_type="select"
-              options={BRASIL_STATES}
-              rules={{ required: true }}
-              errors={errors}
-              control={control}
-            />
-          </Col>
-        </Row>
-        <Row className="input-row">
-          <Col span={24}>
-            <InputRegistered
-              label="Cidade"
-              name="city"
-              input_type="select"
-              options={cities}
-              rules={{ required: true }}
-              errors={errors}
-              control={control}
-            />
-          </Col>
-        </Row>
-        <Row className="input-row">
-          <Col span={24}>
-          <InputRegistered
-              label="Bairro"
-              name="neighborhood"
-              type="text"
-              rules={{ required: true, maxLength: 255 }}
-              errors={errors}
-              control={control}
-            />
-          </Col>
-        </Row>
-        <Row className="input-row">
-          <Col span={24}>
-          <InputRegistered
-              label="Logradouro"
-              name="address"
-              type="text"
-              rules={{ required: true, maxLength: 255 }}
-              errors={errors}
-              control={control}
-            />
-          </Col>
-        </Row>
-        <Row className="input-row">
-          <Col span={24}>
-          <InputRegistered
-              label="Número"
-              name="number"
-              type="tel"
-              rules={{ required: true, maxLength: 6 }}
-              errors={errors}
-              control={control}
-            />
-          </Col>
-        </Row>
-        <Row className="input-row">
-          <Col span={24}>
-          <InputRegistered
-              label="Complemento"
-              name="complement"
-              type="text"
-              rules={{ maxLength: 255 }}
-              errors={errors}
-              control={control}
-            />
-          </Col>
-        </Row>
+        {enableAddress && (
+          <>
+            <Row className="input-row">
+              <Col span={24}>
+                <InputRegistered
+                  label="Estado"
+                  name="state"
+                  input_type="select"
+                  options={BRASIL_STATES}
+                  rules={{ required: true }}
+                  errors={errors}
+                  control={control}
+                />
+              </Col>
+            </Row>
+            <Row className="input-row">
+              <Col span={24}>
+                <InputRegistered
+                  label="Cidade"
+                  name="city"
+                  input_type="select"
+                  options={cities}
+                  rules={{ required: true }}
+                  errors={errors}
+                  control={control}
+                />
+              </Col>
+            </Row>
+            <Row className="input-row">
+              <Col span={24}>
+                <InputRegistered
+                  label="Bairro"
+                  name="neighborhood"
+                  type="text"
+                  rules={{ required: true, maxLength: 255 }}
+                  errors={errors}
+                  control={control}
+                />
+              </Col>
+            </Row>
+            <Row className="input-row">
+              <Col span={24}>
+                <InputRegistered
+                  label="Logradouro"
+                  name="address"
+                  type="text"
+                  rules={{ required: true, maxLength: 255 }}
+                  errors={errors}
+                  control={control}
+                />
+              </Col>
+            </Row>
+            <Row className="input-row">
+              <Col span={24}>
+                <InputRegistered
+                  label="Número"
+                  name="number"
+                  type="tel"
+                  rules={{ required: true, maxLength: 6 }}
+                  errors={errors}
+                  control={control}
+                />
+              </Col>
+            </Row>
+            <Row className="input-row">
+              <Col span={24}>
+                <InputRegistered
+                  label="Complemento"
+                  name="complement"
+                  type="text"
+                  rules={{ maxLength: 255 }}
+                  errors={errors}
+                  control={control}
+                />
+              </Col>
+            </Row>
+          </>
+        )}
 
         <Row className="input-row">
           <Col span={24}>
-            <DefaultButton onClick={handlePressContinue} htmlType="submit">Continuar →</DefaultButton>
+            <DefaultButton
+              hidden={!useContinue}
+              id="button-continue-form-data"
+              onClick={handlePressContinue}
+              htmlType="submit"
+            >
+              Continuar →
+            </DefaultButton>
           </Col>
         </Row>
       </form>

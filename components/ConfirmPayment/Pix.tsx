@@ -27,10 +27,10 @@ export const Pix = ({ pixData, onPixPaid }: PixProps) => {
 
   const tiggerEvent = async () => {
     const fbPixel = await Pixel();
-    console.log("CompraPix");
+    console.log("QRCodePix");
 
-    fbPixel.trackCustom("CompraPix");
-    fbPixel.track("CompraPix");
+    fbPixel.trackCustom("QRCodePix");
+    fbPixel.track("QRCodePix");
   };
 
   const checkPixPayment = async () => {
@@ -52,7 +52,7 @@ export const Pix = ({ pixData, onPixPaid }: PixProps) => {
 
           return notification.success({
             message: "Pagamento realizado com sucesso",
-            duration: 3.5
+            duration: 3.5,
           });
         },
         default: async () => {
@@ -66,9 +66,10 @@ export const Pix = ({ pixData, onPixPaid }: PixProps) => {
       };
 
       setTimeout(async () => {
-        actions[handoutStatus] ? await actions[handoutStatus]() : actions.default();
-      }, 3000)
-      
+        actions[handoutStatus]
+          ? await actions[handoutStatus]()
+          : actions.default();
+      }, 3000);
     } catch (err) {
       console.log(err);
       notification.error({
@@ -105,7 +106,7 @@ export const Pix = ({ pixData, onPixPaid }: PixProps) => {
   };
 
   return (
-    <CenterLayout>
+    <CenterLayout span={10} offset={6}>
       <Container>
         <Row style={{ marginTop: "2rem", marginBottom: "1rem" }}>
           <ConfirmTitle style={{ color: "#F35B04" }}>ATENÇÃO!</ConfirmTitle>
@@ -114,7 +115,10 @@ export const Pix = ({ pixData, onPixPaid }: PixProps) => {
           <ConfirmTitle>A SUA VAGA AINDA NÃO FOI GARANTIDA!</ConfirmTitle>
         </Row>
         <Row style={{ marginTop: "0rem", marginBottom: "1rem" }}>
-          <ConfirmTitle style={{ fontSize: "14px", fontWeight: 400 }}><p style={{ margin: 0 }}>Escaneie o QR CODE e realize o</p> <p>pagamento para finalizar sua inscrição!</p></ConfirmTitle>
+          <ConfirmTitle style={{ fontSize: "14px", fontWeight: 400 }}>
+            <p style={{ margin: 0 }}>Escaneie o QR CODE e realize o</p>{" "}
+            <p>pagamento para finalizar sua inscrição!</p>
+          </ConfirmTitle>
         </Row>
         <Row style={{ marginBottom: "2rem" }}>
           <img
@@ -126,7 +130,9 @@ export const Pix = ({ pixData, onPixPaid }: PixProps) => {
           />
         </Row>
         <Row style={{ marginBottom: "6rem" }}>
-          <Col span={24}>
+          <Col
+            span={24}
+          >
             <ConfirmSubtitle>Pagamento via pix copia e cola</ConfirmSubtitle>
           </Col>
           <Col span={24}>
