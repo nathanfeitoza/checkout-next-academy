@@ -112,7 +112,7 @@ export const Pix = ({ pixData, onPixPaid }: PixProps) => {
           <ConfirmTitle style={{ color: "#F35B04" }}>ATENÇÃO!</ConfirmTitle>
         </Row>
         <Row style={{ marginTop: "0rem", marginBottom: "3rem" }}>
-          <ConfirmTitle>A SUA VAGA AINDA NÃO FOI GARANTIDA!</ConfirmTitle>
+          <ConfirmTitle>A SUA VAGA AINDA <strong style={{ color: "#F35B04" }}>NÃO</strong> FOI GARANTIDA!</ConfirmTitle>
         </Row>
         <Row style={{ marginTop: "0rem", marginBottom: "1rem" }}>
           <ConfirmTitle style={{ fontSize: "14px", fontWeight: 400 }}>
