@@ -26,8 +26,8 @@ const INFORMATIONS = [
 export const PixInformation = () => {
   return (
     <PixInfoContainer>
-      {INFORMATIONS.map((information) => (
-        <InfoContainer>
+      {INFORMATIONS.map((information, index) => (
+        <InfoContainer key={index}>
           {information.icon}
           <InfoTitle>{information.title}</InfoTitle>
           <InfoDescription>{information.description}</InfoDescription>
