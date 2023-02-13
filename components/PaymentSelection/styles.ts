@@ -5,7 +5,7 @@ export const PaymentPriceContainer = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: 70%;
+  width: 100%;
 
   @media only screen and (max-width: 768px) {
     & {
@@ -30,7 +30,7 @@ export const PaymentPriceText = styled.h1`
 `;
 
 export const PaymentTypeContainer = styled.div`
-  width: 70%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 1rem;

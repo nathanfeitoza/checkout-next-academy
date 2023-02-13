@@ -15,8 +15,8 @@ import { DefaultButton } from "../../styles/Global";
 import { CenterLayout } from "../CenterLayout";
 
 const DEFAULT_TITLE_HEADER = {
-  title: "Falta pouco pra você dar um show em campo.",
-  subtitle: "Preencha seus dados pessoais para continuar",
+  title: "Apenas 60 atletas participam na seletiva de futebol. Você é um deles?",
+  subtitle: "Finalize a inscrição e garanta sua vaga!",
 };
 
 const STEPS_COUNT = 2;
@@ -32,6 +32,7 @@ export const Main: React.FC = () => {
   const [personalData, setPersonalData] = useState<any>({});
   const [paymentSuccefullData, setPaymentSuccefullData] = useState();
   const [loading, setLoading] = useState(false);
+  const [selectedPayment, setSelectedPayment] = useState("credit_card");
 
   const onContinuePersonalData = (personalData: PersonalData) => {
     if (!SHOW_PAYMENT_FORM_WITH_PERSONAL_DATA) {
@@ -74,6 +75,14 @@ export const Main: React.FC = () => {
           "city",
         ]),
         ...(paymentData.type === "credit_card" ? paymentData : {}),
+        cpf: "75765773044",
+        neighborhood: "Jardim São Paulo",
+        address: "Rua Barra de São João",
+        number: "01",
+        complement: "Sem",
+        zipcode: "02040070",
+        state: "SP",
+        city: "São Paulo",
       };
       paymentDataSend.value = PRODUCT_VALUE;
       paymentDataSend.method = paymentDataSend.type || "pix";
@@ -186,6 +195,7 @@ export const Main: React.FC = () => {
             useContinue={!SHOW_PAYMENT_FORM_WITH_PERSONAL_DATA}
             loading={loading}
             onPay={onPayment}
+            onSelectPayment={(payment: string) => setSelectedPayment(payment)}
           />
         )}
 
@@ -198,7 +208,7 @@ export const Main: React.FC = () => {
                   onClick={handlePayWithAllForms}
                   id="button-confirm-payment"
                 >
-                  Confirmar Pagamento →
+                  { selectedPayment === "credit_card" ? "Confirmar Pagamento →" : "Gerar QR Code Pix →" }
                 </DefaultButton>
               </Col>
             </Row>

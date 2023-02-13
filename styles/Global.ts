@@ -2,16 +2,20 @@ import styled, { css } from "styled-components";
 import { Button } from 'antd';
 
 const inputStyle = css`
-  padding: 18px 15px 18px 15px;
-  background: #FFFFFF;
-  color: #171717;
-  width: 70%;
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 400;
-  font-size: 14px;
-  line-height: 21px;
-  outline: 0;
+  width: 100%;
+  box-sizing: border-box;
+  outline: none;
+  border-radius: 8px;
+  height: 48px;
+  padding: calc(11px);
+  color: rgb(0, 0, 0);
+  font-size: 16px;
+  font-weight: 400;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0);
 
   &:focus {
     border: 2px solid #F35B04;
@@ -40,10 +44,11 @@ export const Label = styled.label`
   margin-bottom: .6rem;
 `;
 export const DefaultButton = styled(Button)`
-  padding: 17px 0px 19px 0px; 
+  padding: calc(11px);
+  border-radius: 8px;
   text-align: center;
-  background: #F35B04;
-  width: 70%;
+  background: #7BB318;
+  width: 100%;
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 700;
@@ -54,7 +59,6 @@ export const DefaultButton = styled(Button)`
   cursor: pointer;
   border: none;
   height: inherit;
-  border-radius: 0;
 
   @media only screen and (max-width: 768px) {
     & {

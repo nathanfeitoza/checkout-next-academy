@@ -20,6 +20,7 @@ export interface PaymentSelectionProps {
   onPay: (paymentData: PaymentData) => any;
   loading: boolean;
   useContinue?: boolean;
+  onSelectPayment?: (paymentType: string) => void;
 }
 
 const PAYMENTS_TYPES = {
@@ -45,6 +46,7 @@ export const PaymentSelection = ({
   onPay,
   loading,
   useContinue = true,
+  onSelectPayment,
 }: PaymentSelectionProps) => {
   const {
     control,
@@ -78,6 +80,7 @@ export const PaymentSelection = ({
     const { value } = event.target;
 
     setSelectedPayment(value);
+    onSelectPayment && onSelectPayment(value);
   };
 
   return (

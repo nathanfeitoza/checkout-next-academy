@@ -173,7 +173,7 @@ export const FormPersonalData = ({
         <Row className="input-row">
           <Col span={24}>
             <InputRegistered
-              label="Nome"
+              label="Nome Completo"
               name="name"
               rules={{ required: true, maxLength: 255 }}
               errors={errors}
@@ -181,7 +181,7 @@ export const FormPersonalData = ({
             />
           </Col>
         </Row>
-        <Row className="input-row">
+        {/* <Row className="input-row">
           <Col span={24}>
             <InputRegistered
               label="CPF"
@@ -192,7 +192,7 @@ export const FormPersonalData = ({
               masker={cpfMask}
             />
           </Col>
-        </Row>
+        </Row> */}
         <Row className="input-row">
           <Col span={24}>
             <InputRegistered
@@ -217,7 +217,7 @@ export const FormPersonalData = ({
             />
           </Col>
         </Row>
-        <Row className="input-row">
+        {/* <Row className="input-row">
           <Col span={11}>
             <InputRegistered
               style={{ width: "93%" }}
@@ -244,8 +244,8 @@ export const FormPersonalData = ({
               control={control}
             />
           </Col>
-        </Row>
-        <Row className="input-row">
+        </Row> */}
+        {/* <Row className="input-row">
           <Col span={24}>
             <InputRegistered
               label="CEP"
@@ -257,8 +257,8 @@ export const FormPersonalData = ({
               onBlur={handleBlurZipCode}
             />
           </Col>
-        </Row>
-        {enableAddress && (
+        </Row> */}
+        {/* {enableAddress && (
           <>
             <Row className="input-row">
               <Col span={24}>
@@ -335,7 +335,7 @@ export const FormPersonalData = ({
               </Col>
             </Row>
           </>
-        )}
+        )} */}
 
         <Row className="input-row">
           <Col span={24}>
