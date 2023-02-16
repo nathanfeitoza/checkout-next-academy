@@ -9,6 +9,7 @@ import { CenterLayout } from "../CenterLayout";
 import { Footer } from "./Footer";
 import { ConfirmSubtitle, ConfirmTitle, Container } from "./styles";
 import { checkPayment } from "../../services/payment";
+import { gTavEvent } from "../../utils/gTagEvent";
 
 export interface PixProps {
   pixData: PixPayment;
@@ -31,6 +32,10 @@ export const Pix = ({ pixData, onPixPaid }: PixProps) => {
 
     fbPixel.trackCustom("QRCodePix");
     fbPixel.track("QRCodePix");
+    gTavEvent('event', 'conversion', {
+      'send_to': 'AW-319350377/p2p_CPXKrIwYEOnMo5gB',
+      'event_callback': () => {},
+    })
   };
 
   const checkPixPayment = async () => {

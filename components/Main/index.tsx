@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Layout, Row, Col, notification } from "antd";
 import { Container, Header } from "./styles";
 import { NextHeader } from "../NextHeader";
@@ -13,6 +13,7 @@ import { ExtractFields } from "../../utils/extractFields";
 import { OnlyNumber } from "../../utils/onlyNumber";
 import { DefaultButton } from "../../styles/Global";
 import { CenterLayout } from "../CenterLayout";
+import { gTavEvent } from "../../utils/gTagEvent";
 
 const DEFAULT_TITLE_HEADER = {
   title: "Apenas 60 atletas participam na seletiva de futebol. Você é um deles?",
@@ -169,6 +170,10 @@ export const Main: React.FC = () => {
     setHeaderSubtitle(null as any);
     setActualForm(null as any);
   };
+
+  useEffect(() => {
+    gTavEvent('event', 'conversion', {'send_to': 'AW-319350377/bn4GCPLKrIwYEOnMo5gB'});
+  }, [])
 
   return (
     <Layout style={{ background: "#171717" }}>

@@ -8,6 +8,7 @@ import {
 } from "../../services/location";
 import { Pixel } from "../../services/pixel";
 import { DefaultButton, SectionTitle } from "../../styles/Global";
+import { gTavEvent } from "../../utils/gTagEvent";
 import { cpfMask, dateMask, phoneMask, zipCodeMask } from "../../utils/mask";
 import { OnlyNumber } from "../../utils/onlyNumber";
 import { CenterLayout } from "../CenterLayout";
@@ -162,6 +163,11 @@ export const FormPersonalData = ({
 
     fbPixel.track("Initiate Checkout", formData);
     fbPixel.track("InitiateCheckout", formData);
+    gTavEvent('event', 'conversion', {
+      'send_to': 'AW-319350377/e6ZICLjYqowYEOnMo5gB',
+      'event_callback': () => {}
+    });
+
   };
 
   return (
