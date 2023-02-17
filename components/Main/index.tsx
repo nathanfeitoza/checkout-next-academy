@@ -143,6 +143,12 @@ export const Main: React.FC = () => {
           handoutId: data.handout.id,
         },
       } as any);
+
+      if (selectedPayment != "credit_card") {
+        setTimeout(() => {
+          window.scrollTo({ top: window.pageYOffset * 1.45 })
+        }, 250)
+      }
     } catch (err) {
       console.log(err);
       notification.error({

@@ -25,7 +25,7 @@ export const NextHeader = ({
   }
 
   return (
-    <CenterLayout>
+    <CenterLayout className="justify-to-50">
       {title && (
         <>
           <Row style={{ paddingTop: "5rem", alignItems: "center" }}>
