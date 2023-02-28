@@ -53,6 +53,67 @@ const BRASIL_STATES = [
   { value: "TO", label: "Tocantins" },
 ];
 
+const SELECTIVE_STATES = [
+  { value: "", label: "" },
+  { value: "VOLTA REDONDA/RJ", label: "VOLTA REDONDA/RJ - 26/03/2023" },
+  { value: "FOZ DO IGUAÇU/PR", label: "FOZ DO IGUAÇU/PR - 26/03/2023" },
+  { value: "BARUERI/SP", label: "BARUERI/SP - 26/03/2023" },
+  { value: "CUIABÁ/MT", label: "CUIABÁ/MT - 26/03/2023" },
+  { value: "SALVADOR/BA-", label: "SALVADOR/BA - 26/03/2023" },
+  { value: "SANTO ANDRÉ/SP", label: "SANTO ANDRÉ/SP - 26/03/2023" },
+  { value: "CAMPO GRANDE/RJ", label: "CAMPO GRANDE/RJ - 26/03/2023" },
+  { value: "BELÉM/PA", label: "BELÉM/PA - 26/03/2023" },
+  { value: "NITERÓI/RJ-", label: "NITERÓI/RJ - 26/03/2023" },
+  { value: "FORTALEZA/CE-", label: "FORTALEZA/CE - 26/03/2023" },
+  { value: "BAURU/SP-", label: "BAURU/SP - 26/02/2023" },
+  { value: "MORUMBI/SP-", label: "MORUMBI/SP - 19/03/2023" },
+  { value: "BOA VISTA/RR-", label: "BOA VISTA/RR - 26/02/2023" },
+  { value: "ARACAJU/SE", label: "ARACAJU/SE - 04/03/2023" },
+  { value: "MONTES CLAROS/MG", label: "MONTES CLAROS/MG - 04/03/2023" },
+  { value: "DIVINÓPOLIS/MG", label: "DIVINÓPOLIS/MG - 04/03/2023" },
+  { value: "MACEIÓ/AL-", label: "MACEIÓ/AL - 05/03/2023" },
+  { value: "PORTO VELHO/RO", label: "PORTO VELHO/RO - 04/03/2023" },
+  { value: "VITÓRIA/ES", label: "VITÓRIA/ES - 04/03/2023" },
+  {
+    value: "SÃO JOSÉ DO RIO PRETO/SP-",
+    label: "SÃO JOSÉ DO RIO PRETO/SP - 05/03/2023",
+  },
+  { value: "PALMAS/TO-", label: "PALMAS/TO - 05/03/2023" },
+  { value: "SÃO LUIS/MA-", label: "SÃO LUIS/MA - 05/03/2023" },
+  { value: "AMERICANA/SP-", label: "AMERICANA/SP - 05/03/2023" },
+  { value: "RIO BRANCO/AC-", label: "RIO BRANCO/AC - 11/03/2023" },
+  { value: "MARINGÁ/PR-", label: "MARINGÁ/PR - 11/03/2023" },
+  { value: "JOINVILLE/SC-", label: "JOINVILLE/SC - 11/03/2023" },
+  { value: "PONTA GROSSA/PR-", label: "PONTA GROSSA/PR - 11/03/2023" },
+  { value: "VARGINHA/MG-", label: "VARGINHA/MG - 11/03/2023" },
+  { value: "OSASCO/SP-", label: "OSASCO/SP - 11/03/2023" },
+  {
+    value: "SÃO PAULO (VILA PRUDENTE)-",
+    label: "SÃO PAULO (VILA PRUDENTE) - 11/03/2023",
+  },
+  { value: "COTIA/SP-", label: "COTIA/SP - 11/03/2023" },
+  { value: "GUARULHOS/SP-", label: "GUARULHOS/SP - 11/03/2023" },
+  { value: "IPATINGA/MG-", label: "IPATINGA/MG - 11/03/2023" },
+  { value: "IPATINGA/MG-", label: "IPATINGA/MG - 11/03/2023" },
+  { value: "MOGI DAS CRUZES/SP-", label: "MOGI DAS CRUZES/SP - 11/03/2023" },
+  { value: "MACAPÁ/AP-", label: "MACAPÁ/AP - 11/03/2023" },
+  { value: "MANAUS/AM-", label: "MANAUS/AM - 11/03/2023" },
+  {
+    value: "PRESIDENTE PRUDENTE/SP-",
+    label: "PRESIDENTE PRUDENTE/SP - 12/03/2023",
+  },
+  { value: "JUIZ DE FORA/MG-", label: "JUIZ DE FORA/MG - 18/03/2023" },
+  { value: "LONDRINA/PR-", label: "LONDRINA/PR - 18/03/2023" },
+  { value: "GOIÂNIA/GO-", label: "GOIÂNIA/GO - 19/03/2023" },
+  { value: "TERESINA/PI-", label: "TERESINA/PI - 19/03/2023" },
+  { value: "SANTO ANDRÉ/SP-", label: "SANTO ANDRÉ/SP - 25/03/2023" },
+  { value: "SINOP/MT-", label: "SINOP/MT - 25/03/2023" },
+  { value: "PORTO VELHO/RO-", label: "PORTO VELHO/RO - 25/03/2023" },
+  { value: "VITÓRIA/ES-", label: "VITÓRIA/ES - 26/03/2023" },
+  { value: "SÃO PAULO (BERRINI)-", label: "SÃO PAULO (BERRINI) - 26/03/2023" },
+  { value: "MARABÁ/PA-", label: "MARABÁ/PA - 09/04/2023" },
+];
+
 export const FormPersonalData = ({
   onContinue,
   initialData,
@@ -163,11 +224,10 @@ export const FormPersonalData = ({
 
     fbPixel.track("Initiate Checkout", formData);
     fbPixel.track("InitiateCheckout", formData);
-    gTavEvent('event', 'conversion', {
-      'send_to': 'AW-319350377/e6ZICLjYqowYEOnMo5gB',
-      'event_callback': () => {}
+    gTavEvent("event", "conversion", {
+      send_to: "AW-319350377/e6ZICLjYqowYEOnMo5gB",
+      event_callback: () => {},
     });
-
   };
 
   return (
@@ -176,6 +236,20 @@ export const FormPersonalData = ({
         <SectionTitle>Seus Dados</SectionTitle>
       </Row>
       <form onSubmit={handleSubmit(onSubmit)}>
+      <Row className="input-row">
+              <Col span={24}>
+                <InputRegistered
+                  label="Escolha a seletiva mais perto de você"
+                  name="seletiva"
+                  input_type="select"
+                  options={SELECTIVE_STATES}
+                  rules={{ required: true }}
+                  errors={errors}
+                  control={control}
+                  placeholder="Escolha o local"
+                />
+              </Col>
+            </Row>
         <Row className="input-row">
           <Col span={24}>
             <InputRegistered

@@ -39,6 +39,31 @@ a {
   margin-bottom: 1rem;
 }
 
+.styles__Header-sc-1fn4imv-0 {
+  width:100%;
+  background-repeat:no-repeat;
+  background-size:cover;
+  background-position:bottom;
+  color:#fff;
+  line-height:64px;
+  border-bottom:2px solid #F35B04;
+}
+
+@media only screen and (max-width: 768px) {
+  .justify-to-50 {
+    padding-inline: 50px;
+  }
+}
+
+.ant-col.ant-col-10 {
+  flex: 0 0 45.83333333%;
+  max-width: 45.83333333%;
+}
+
+.ant-col.ant-col-10.ant-col-offset-6 {
+  margin-left: 29.16666667%;
+}
+
 @media only screen and (max-width: 768px) {
   .row-center .ant-col {
     margin-inline-start: 0% !important;

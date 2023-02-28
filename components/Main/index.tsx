@@ -64,6 +64,7 @@ export const Main: React.FC = () => {
       const paymentDataSend: any = {
         ...ExtractFields(personalData, [
           "name",
+          "seletiva",
           "phone_number",
           "email",
           "cpf",
