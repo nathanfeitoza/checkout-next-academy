@@ -81,6 +81,15 @@ export const PaymentSelection = ({
 
     setSelectedPayment(value);
     onSelectPayment && onSelectPayment(value);
+
+    if (value == "pix") {
+      setTimeout(() => {
+        window.scrollTo({
+          top: 10000,
+          behavior: "smooth"
+      });
+      }, 100);
+    }
   };
 
   return (
