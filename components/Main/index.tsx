@@ -213,14 +213,14 @@ export const Main: React.FC = () => {
 
         {SHOW_PAYMENT_FORM_WITH_PERSONAL_DATA && !paymentSuccefullData && (
           <CenterLayout>
-            <Row style={{ marginTop: "2rem" }} className="input-row">
+            <Row style={{ marginTop: "1rem" }} className="input-row">
               <Col span={24}>
                 <DefaultButton
                   loading={loading}
                   onClick={handlePayWithAllForms}
                   id="button-confirm-payment"
                 >
-                  { selectedPayment === "credit_card" ? "Confirmar Pagamento →" : "Gerar QR Code Pix →" }
+                  { selectedPayment === "credit_card" ? "Confirmar Pagamento →" : "Gerar Código Pix →" }
                 </DefaultButton>
               </Col>
             </Row>

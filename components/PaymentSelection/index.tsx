@@ -127,7 +127,7 @@ export const PaymentSelection = ({
             </PaymentTypeContainer>
           </Radio.Group>
         </Row>
-        <Row style={{ marginTop: "2rem" }} className="input-row">
+        <Row style={{ marginTop: "-1rem" }} className="input-row">
           <Col span={24}>
             <DefaultButton
               id="button-confirm-payment"
