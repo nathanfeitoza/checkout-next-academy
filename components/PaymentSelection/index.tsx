@@ -13,11 +13,11 @@ import {
   PaymentTypeContainer,
   PaymentTypeItem,
   PaymentTypeRadioContainer,
-  PixTitle,
 } from "./styles";
 
 export interface PaymentSelectionProps {
   onPay: (paymentData: PaymentData) => any;
+  leadSent: boolean;
   loading: boolean;
   useContinue?: boolean;
   onSelectPayment?: (paymentType: string) => void;
@@ -47,6 +47,7 @@ export const PaymentSelection = ({
   loading,
   useContinue = true,
   onSelectPayment,
+  leadSent,
 }: PaymentSelectionProps) => {
   const {
     control,
@@ -67,7 +68,7 @@ export const PaymentSelection = ({
     if (selectedPayment === "pix") {
       data = {
         pix_payment: {
-          img_url: "/assets/qrcode.png",
+          img_url: "/checkout/assets/qrcode.png",
           copy_and_paste_code: "ajdshjkdhaskjdhjskahdjka123213213",
         },
       };
@@ -86,8 +87,8 @@ export const PaymentSelection = ({
       setTimeout(() => {
         window.scrollTo({
           top: 10000,
-          behavior: "smooth"
-      });
+          behavior: "smooth",
+        });
       }, 100);
     }
   };
@@ -103,43 +104,45 @@ export const PaymentSelection = ({
           <PaymentPriceText>R$ 297</PaymentPriceText>
         </PaymentPriceContainer>
       </Row>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <Row style={{ marginBottom: ".5rem" }}>
-          <SectionTitle>Selecione a Forma de pagamento</SectionTitle>
-        </Row>
-        <Row>
-          <Radio.Group style={{ width: "100%" }} onChange={handleRadio}>
-            <PaymentTypeContainer>
-              {Object.entries(PAYMENTS_TYPES).map(([name, data]) => (
-                <PaymentTypeItem key={name}>
-                  <PaymentTypeRadioContainer>
-                    <Radio value={name}>
-                      <h1>{data.label}</h1>
-                    </Radio>
-                  </PaymentTypeRadioContainer>
-                  {selectedPayment === name && (
-                    <ItemContainer>
-                      {data.children(control, errors, watch)}
-                    </ItemContainer>
-                  )}
-                </PaymentTypeItem>
-              ))}
-            </PaymentTypeContainer>
-          </Radio.Group>
-        </Row>
-        <Row style={{ marginTop: "-1rem" }} className="input-row">
-          <Col span={24}>
-            <DefaultButton
-              id="button-confirm-payment"
-              loading={loading}
-              htmlType="submit"
-              hidden={!useContinue}
-            >
-              Confirmar Pagamento →
-            </DefaultButton>
-          </Col>
-        </Row>
-      </form>
+      {leadSent && (
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Row style={{ marginBottom: ".5rem" }}>
+            <SectionTitle>Selecione a Forma de pagamento</SectionTitle>
+          </Row>
+          <Row>
+            <Radio.Group style={{ width: "100%" }} onChange={handleRadio}>
+              <PaymentTypeContainer>
+                {Object.entries(PAYMENTS_TYPES).map(([name, data]) => (
+                  <PaymentTypeItem key={name}>
+                    <PaymentTypeRadioContainer>
+                      <Radio value={name}>
+                        <h1>{data.label}</h1>
+                      </Radio>
+                    </PaymentTypeRadioContainer>
+                    {selectedPayment === name && (
+                      <ItemContainer>
+                        {data.children(control, errors, watch)}
+                      </ItemContainer>
+                    )}
+                  </PaymentTypeItem>
+                ))}
+              </PaymentTypeContainer>
+            </Radio.Group>
+          </Row>
+          <Row style={{ marginTop: "-1rem" }} className="input-row">
+            <Col span={24}>
+              <DefaultButton
+                id="button-confirm-payment"
+                loading={loading}
+                htmlType="submit"
+                hidden={!useContinue}
+              >
+                Confirmar Pagamento →
+              </DefaultButton>
+            </Col>
+          </Row>
+        </form>
+      )}
     </CenterLayout>
   );
 };

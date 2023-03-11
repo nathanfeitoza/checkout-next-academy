@@ -34,7 +34,7 @@ export const NextHeader = ({
                 alt="Logo Next Academy"
                 width={119}
                 height={43}
-                src="/assets/logo-next.png"
+                src="/checkout/assets/logo-next.png"
               />
             </Col>
             <Col span={11} offset={1}>
@@ -79,7 +79,7 @@ export const NextHeader = ({
               alt="Logo Next Academy"
               width={119}
               height={43}
-              src="/assets/logo-next.png"
+              src="/checkout/assets/logo-next.png"
             />
           </Col>
         </Row>

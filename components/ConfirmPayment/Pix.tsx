@@ -45,7 +45,9 @@ export const Pix = ({ pixData, onPixPaid }: PixProps) => {
 
     setChecking(true);
 
+    
     try {
+      const fbPixel = await Pixel();
       const { data } = await checkPayment(pixData.handoutId);
       const handoutStatus = data.handout.status;
       const actions: any = {
@@ -53,6 +55,17 @@ export const Pix = ({ pixData, onPixPaid }: PixProps) => {
           checkPixPayment();
         },
         paid: async () => {
+          console.log("Compra")
+
+          fbPixel.trackCustom('Compra');
+          fbPixel.track('Compra');
+          gTavEvent('event', 'conversion', {
+            'send_to': 'AW-319350377/oISzCLXYqowYEOnMo5gB',
+            'value': 297.0,
+            'currency': 'BRL',
+            'transaction_id': '',
+            'event_callback': () => {}
+          });
           onPixPaid();
 
           return notification.success({

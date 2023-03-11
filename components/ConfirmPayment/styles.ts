@@ -19,6 +19,17 @@ export const ConfirmTitle = styled.p`
   color: #ffffff;
 `;
 
+export const ConfirmSubTitle = styled.p`
+  margin: 0;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 119.2%;
+  text-align: center;
+  color: #ffffff;
+`;
+
 export const ConfirmSubtitle = styled.p`
   font-family: "Poppins";
   font-style: normal;
@@ -30,6 +41,21 @@ export const ConfirmSubtitle = styled.p`
   white-space: break-spaces;
   word-break: break-all;
   overflow: hidden;
+`;
+
+export const ButtonMoreInputs = styled.button`
+  width: 25px;
+  height: 25px;
+  border-radius: 50rem;
+  background-color: #ee5904;
+  color: #fff;
+  font-size: 14px;
+  border: 0;
+  cursor: pointer;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const TitleGoToTrain = styled.p`

@@ -26,6 +26,9 @@ export interface InputRegisteredProps {
   onBlur?: (event: EventType) => void;
   masker?: MaskerObject;
   value?: any;
+  isArray?: boolean;
+  arrayKey?: string;
+  hiddenLabel?: boolean;
 }
 
 const transformValue = (value: any, masker?: MaskerObject): string => {
@@ -66,6 +69,9 @@ export const InputRegistered = ({
   onChange,
   onBlur,
   control,
+  isArray,
+  arrayKey,
+  hiddenLabel,
   ...args
 }: InputRegisteredProps) => {
   const handleOnChange = (
@@ -83,7 +89,7 @@ export const InputRegistered = ({
 
   return (
     <Container>
-      {label && <Label>{label}</Label>}
+      {(label && !hiddenLabel) && <Label>{label}</Label>}
 
       <Controller
         control={control}
@@ -122,6 +128,12 @@ export const InputRegistered = ({
       {(errors || {})[name] && (
         <ErrorText>
           {parseMessageError(errors as any, name, label as string)}
+        </ErrorText>
+      )}
+
+      {(errors || {})[arrayKey || ''] && (
+        <ErrorText>
+          {parseMessageError(errors as any, (arrayKey || ''), label as string)}
         </ErrorText>
       )}
     </Container>

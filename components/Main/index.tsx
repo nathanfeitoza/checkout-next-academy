@@ -15,8 +15,25 @@ import { DefaultButton } from "../../styles/Global";
 import { CenterLayout } from "../CenterLayout";
 import { gTavEvent } from "../../utils/gTagEvent";
 
+/*
+Payment sucessulldata test
+
+{
+    "installments": 1,
+    "card_holder_name": "APRO",
+    "card_number": "4000000000000010",
+    "card_expiration_date": "01/25",
+    "card_cvv": "123",
+    "type": "credit_card",
+    "pix_payment": {
+        "handoutId": 46254
+    }
+}
+*/
+
 const DEFAULT_TITLE_HEADER = {
-  title: "Apenas 60 atletas participam na seletiva de futebol. Você é um deles?",
+  title:
+    "Apenas 60 atletas participam na seletiva de futebol. Você é um deles?",
   subtitle: "Finalize a inscrição e garanta sua vaga!",
 };
 
@@ -34,6 +51,7 @@ export const Main: React.FC = () => {
   const [paymentSuccefullData, setPaymentSuccefullData] = useState();
   const [loading, setLoading] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState("credit_card");
+  const [leadSent, setLeadSent] = useState(false);
 
   const onContinuePersonalData = (personalData: PersonalData) => {
     if (!SHOW_PAYMENT_FORM_WITH_PERSONAL_DATA) {
@@ -141,14 +159,14 @@ export const Main: React.FC = () => {
         pix_payment: {
           img_url: data?.data?.qr_code_url,
           copy_and_paste_code: data?.data?.qr_code,
-          handoutId: data.handout.id,
+          handoutId: data.handout?.id || '123',
         },
       } as any);
 
       if (selectedPayment != "credit_card") {
         setTimeout(() => {
-          window.scrollTo({ top: window.pageYOffset * 1.45 })
-        }, 250)
+          window.scrollTo({ top: window.pageYOffset * 1.45 });
+        }, 250);
       }
     } catch (err) {
       console.log(err);
@@ -179,8 +197,10 @@ export const Main: React.FC = () => {
   };
 
   useEffect(() => {
-    gTavEvent('event', 'conversion', {'send_to': 'AW-319350377/bn4GCPLKrIwYEOnMo5gB'});
-  }, [])
+    gTavEvent("event", "conversion", {
+      send_to: "AW-319350377/bn4GCPLKrIwYEOnMo5gB",
+    });
+  }, []);
 
   return (
     <Layout style={{ background: "#171717" }}>
@@ -199,29 +219,36 @@ export const Main: React.FC = () => {
             initialData={{ genre: "M" } as any}
             onContinue={onContinuePersonalData}
             useContinue={!SHOW_PAYMENT_FORM_WITH_PERSONAL_DATA}
+            onLeadSent={() => setLeadSent(true)}
           />
         )}
 
-        {(actualForm === "payment" || SHOW_PAYMENT_FORM_WITH_PERSONAL_DATA) && actualForm !== null && (
-          <PaymentSelection
-            useContinue={!SHOW_PAYMENT_FORM_WITH_PERSONAL_DATA}
-            loading={loading}
-            onPay={onPayment}
-            onSelectPayment={(payment: string) => setSelectedPayment(payment)}
-          />
-        )}
+        {(actualForm === "payment" || SHOW_PAYMENT_FORM_WITH_PERSONAL_DATA) &&
+          actualForm !== null && (
+            <PaymentSelection
+              useContinue={!SHOW_PAYMENT_FORM_WITH_PERSONAL_DATA}
+              loading={loading}
+              onPay={onPayment}
+              onSelectPayment={(payment: string) => setSelectedPayment(payment)}
+              leadSent={leadSent}
+            />
+          )}
 
         {SHOW_PAYMENT_FORM_WITH_PERSONAL_DATA && !paymentSuccefullData && (
           <CenterLayout>
             <Row style={{ marginTop: "1rem" }} className="input-row">
               <Col span={24}>
-                <DefaultButton
-                  loading={loading}
-                  onClick={handlePayWithAllForms}
-                  id="button-confirm-payment"
-                >
-                  { selectedPayment === "credit_card" ? "Confirmar Pagamento →" : "Gerar Código Pix →" }
-                </DefaultButton>
+                {leadSent && (
+                  <DefaultButton
+                    loading={loading}
+                    onClick={handlePayWithAllForms}
+                    id="button-confirm-payment"
+                  >
+                    {selectedPayment === "credit_card"
+                      ? "Confirmar Pagamento →"
+                      : "Gerar Código Pix →"}
+                  </DefaultButton>
+                )}
               </Col>
             </Row>
           </CenterLayout>

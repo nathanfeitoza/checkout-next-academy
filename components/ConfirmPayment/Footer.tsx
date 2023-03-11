@@ -13,10 +13,10 @@ export const Footer = () => {
       </Row>
       <Row style={{ width: "16%", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <a href="#">
-            <Image width={24} height={24} src="/assets/instagram.png" alt="Instagram profile" />
+            <Image width={24} height={24} src="/checkout/assets/instagram.png" alt="Instagram profile" />
           </a>
         <a href="#">
-            <Image width={24} height={24} src="/assets/facebook.png" alt="Facebook profile" />
+            <Image width={24} height={24} src="/checkout/assets/facebook.png" alt="Facebook profile" />
           </a>
       </Row>
     </Container>

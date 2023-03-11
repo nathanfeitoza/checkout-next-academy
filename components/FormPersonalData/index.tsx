@@ -2,6 +2,7 @@ import { Layout, Row, Col, notification } from "antd";
 import { useEffect, useRef, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { PersonalData } from "../../models/personalData";
+import { saveLead } from "../../services/contact";
 import {
   fetchCitiesByState,
   fetchLocationByZipCode,
@@ -16,6 +17,7 @@ import { InputRegistered } from "../InputRegistered";
 
 export interface FormPersonalDataProps {
   onContinue: (personalData: PersonalData) => void;
+  onLeadSent: () => void;
   initialData?: PersonalData;
   onDataChange?: (data: PersonalData) => void;
   useContinue?: boolean;
@@ -128,6 +130,7 @@ export const FormPersonalData = ({
   onDataChange,
   useContinue = true,
   onRefSubmit,
+  onLeadSent,
 }: FormPersonalDataProps) => {
   const ref = useRef();
   const {
@@ -141,6 +144,7 @@ export const FormPersonalData = ({
   const [cities, setCities] = useState<{ label: string; value: string }[]>([]);
   const [defaultCity, setDefaultCity] = useState("");
   const [enableAddress, setEnableAddress] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const fetchCities = async (state: string) => {
     try {
@@ -198,8 +202,26 @@ export const FormPersonalData = ({
     }
   };
 
-  const onSubmit = (data: any) => {
-    onContinue(data);
+  const onSubmit = async (data: any) => {
+    setLoading(true);
+
+    try {
+      await saveLead({
+        ...data,
+        phone: data.phone_number
+      })
+      onLeadSent();
+    } catch (err) {
+      console.log(err)
+      notification.error({
+        message: "Erro ao prosseguir para o pagamento",
+        duration: 3.5,
+        description:
+          "Ocorreu um erro ao prosseguir com o pagamento. Tente novamente mais tarde.",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleChangeState = (state: string) => {
@@ -303,6 +325,17 @@ export const FormPersonalData = ({
               errors={errors}
               control={control}
             />
+          </Col>
+        </Row>
+        <Row className="input-row">
+          <Col span={24}>
+            <DefaultButton
+              onClick={handlePressContinue}
+              htmlType="submit"
+              loading={loading}
+            >
+              Prosseguir para o pagamento
+            </DefaultButton>
           </Col>
         </Row>
         {/* <Row className="input-row">
@@ -430,8 +463,8 @@ export const FormPersonalData = ({
             <DefaultButton
               hidden={!useContinue}
               id="button-continue-form-data"
-              onClick={handlePressContinue}
-              htmlType="submit"
+              onClick={() => onContinue(getValues())}
+              htmlType="button"
             >
               Continuar →
             </DefaultButton>

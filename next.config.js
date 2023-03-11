@@ -4,7 +4,8 @@ const nextConfig = {
   swcMinify: true,
   images: {
     unoptimized: true
-  }
+  },
+  basePath: "/checkout"
 }
 
 module.exports = nextConfig
