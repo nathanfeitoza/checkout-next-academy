@@ -1,14 +1,14 @@
 import { Col, notification, Row } from "antd";
 import { useEffect, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
-import { IndicateFriend } from "../../../services/contact";
+import { indicateFriend } from "../../../services/contact";
 import { DefaultButton } from "../../../styles/Global";
 import { InputRegistered } from "../../InputRegistered";
 import { ButtonMoreInputs } from "../styles";
 
 let gerado = false;
 
-export const FormIndication = () => {
+export const FormIndication = ({ handoutId }: { handoutId: string }) => {
   const [loading, setLoading] = useState(false);
 
   const {
@@ -18,7 +18,7 @@ export const FormIndication = () => {
     formState: { errors },
   } = useForm();
 
-  const { fields, append, prepend, remove, swap, move, insert } = useFieldArray({
+  const { fields, append } = useFieldArray({
     control, // control props comes from useForm (optional: if you are using FormContext)
     name: "friends", // unique name for your Field Array
   });
@@ -27,7 +27,7 @@ export const FormIndication = () => {
     setLoading(true);
 
     try {
-      await IndicateFriend(data)
+      await indicateFriend(handoutId, data)
       notification.success({
         message: "Amigos indicados com sucesso",
         duration: 3.5,
@@ -64,7 +64,7 @@ export const FormIndication = () => {
                   label="Amigo"
                   hiddenLabel={true}
                   name={`friends.${index}.friend`}
-                  rules={{ required: true }}
+                  rules={{ required: index < 5 }}
                   errors={errors}
                   control={control}
                   placeholder="E-mail do amigo"

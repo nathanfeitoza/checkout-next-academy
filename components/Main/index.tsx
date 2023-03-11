@@ -25,6 +25,7 @@ Payment sucessulldata test
     "card_expiration_date": "01/25",
     "card_cvv": "123",
     "type": "credit_card",
+    "handoutId": "46254",
     "pix_payment": {
         "handoutId": 46254
     }
@@ -156,10 +157,11 @@ export const Main: React.FC = () => {
 
       setPaymentSuccefullData({
         ...paymentData,
+        handoutId: data.handout?.id || "123",
         pix_payment: {
           img_url: data?.data?.qr_code_url,
           copy_and_paste_code: data?.data?.qr_code,
-          handoutId: data.handout?.id || '123',
+          handoutId: data.handout?.id || "123",
         },
       } as any);
 

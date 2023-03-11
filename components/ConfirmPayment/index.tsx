@@ -23,7 +23,7 @@ export const ConfirmPayment = ({ paymentData, onPaid }: ConfirmPaymentProps) => 
   }, [paymentData])
 
   return paymentData.type === "credit_card" || pixPaid ? (
-    <Card />
+    <Card handoutId={paymentData.handoutId} />
   ) : (
     <Pix onPixPaid={handlePixPaid} pixData={paymentData.pix_payment as PixPayment} />
   );

@@ -13,6 +13,7 @@ export interface PixPayment {
 }
 
 export interface PaymentData {
+  handoutId: string;
   card_payment?: CardPayment,
   pix_payment?: PixPayment,
   type: "credit_card" | "pix";

@@ -1,5 +1,13 @@
 import api from "./api";
 
+type FriendType = {
+  friend: string;
+}
+
+type FriendsType = {
+  friends: FriendType[]
+}
+
 export const saveLead = (data: {
   name: string;
   email: string;
@@ -13,6 +21,8 @@ export const saveLead = (data: {
   });
 };
 
-export const IndicateFriend = (friends: any) => {
-  console.log(friends)
+export const indicateFriend = (handoutId: string, friendsData: FriendsType) => {
+  const friendSave = friendsData.friends.map((item) => item.friend).join(',');
+  
+  return api.post(`save_indicacoes_unbk?handoutId=${handoutId}`, {indicacoes: friendSave})
 }

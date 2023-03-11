@@ -15,7 +15,7 @@ import { Pixel } from "../../services/pixel";
 import { gTavEvent } from "../../utils/gTagEvent";
 import { FormIndication } from "./FormIndication";
 
-export const Card = () => {
+export const Card = ({ handoutId }: { handoutId: string }) => {
   const tiggerEvent = async () => {
       const fbPixel = await Pixel();
       console.log("Compra")
@@ -66,7 +66,7 @@ export const Card = () => {
             <ConfirmSubTitle>Indique <span style={{ color: "#ee5904" }}>05 amigos</span> que poderiam jogar com você no dia da seletiva e receba um curso gratuito de Intercâmbio esportivo no seu e-mail.</ConfirmSubTitle>
           </Col>
           <Col span={24}>
-            <FormIndication />
+            <FormIndication handoutId={handoutId} />
           </Col>
         </Row>
         <Row style={{ marginBottom: "1rem" }}>

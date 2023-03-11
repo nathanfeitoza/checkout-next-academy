@@ -145,6 +145,7 @@ export const FormPersonalData = ({
   const [defaultCity, setDefaultCity] = useState("");
   const [enableAddress, setEnableAddress] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [leadSent, setLeadSent] = useState(false);
 
   const fetchCities = async (state: string) => {
     try {
@@ -209,7 +210,8 @@ export const FormPersonalData = ({
       await saveLead({
         ...data,
         phone: data.phone_number
-      })
+      });
+      setLeadSent(true);
       onLeadSent();
     } catch (err) {
       console.log(err)
@@ -327,17 +329,20 @@ export const FormPersonalData = ({
             />
           </Col>
         </Row>
-        <Row className="input-row">
-          <Col span={24}>
-            <DefaultButton
-              onClick={handlePressContinue}
-              htmlType="submit"
-              loading={loading}
-            >
-              Prosseguir para o pagamento
-            </DefaultButton>
-          </Col>
-        </Row>
+        {!leadSent && (
+          <Row className="input-row">
+            <Col span={24}>
+              <DefaultButton
+                onClick={handlePressContinue}
+                htmlType="submit"
+                loading={loading}
+              >
+                Prosseguir para o pagamento
+              </DefaultButton>
+            </Col>
+          </Row>
+        )}
+
         {/* <Row className="input-row">
           <Col span={11}>
             <InputRegistered
