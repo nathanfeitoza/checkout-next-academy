@@ -8,7 +8,7 @@ const ContainerCss = css`
 
 export const Header = styled.div`
   width: 100%;
-  background-image: url("/checkout/assets/bg-header.png");
+  background-image: url("/checkout-unbk/assets/bg-header.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: bottom;

@@ -43,7 +43,7 @@ export const Card = ({ handoutId }: { handoutId: string }) => {
           <Image
             width={76}
             height={76}
-            src="/checkout/assets/check-icon.svg"
+            src="/checkout-unbk/assets/check-icon.svg"
             alt="Check icon"
           />
         </Row>

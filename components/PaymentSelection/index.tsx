@@ -68,7 +68,7 @@ export const PaymentSelection = ({
     if (selectedPayment === "pix") {
       data = {
         pix_payment: {
-          img_url: "/checkout/assets/qrcode.png",
+          img_url: "/checkout-unbk/assets/qrcode.png",
           copy_and_paste_code: "ajdshjkdhaskjdhjskahdjka123213213",
         },
       };
