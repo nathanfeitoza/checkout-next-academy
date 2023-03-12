@@ -5,7 +5,7 @@ const nextConfig = {
   images: {
     unoptimized: true
   },
-  basePath: "/checkout"
+  basePath: "/checkout-unbk"
 }
 
 module.exports = nextConfig
