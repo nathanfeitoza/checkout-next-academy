@@ -15,8 +15,8 @@ export const saveLead = (data: {
 }) => {
   return api.post("/rise_contact", {
     ...data,
-    traffic_origin: "unbk",
-    landing_page_origem: "matriz",
+    traffic_origin: "matriz",
+    landing_page_origem: "unbk",
     project: "rise_contacts",
   });
 };
