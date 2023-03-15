@@ -17,7 +17,7 @@ export const saveLead = (data: {
     ...data,
     traffic_origin: "matriz",
     landing_page_origem: "unbk",
-    project: "rise_contacts",
+    project: "unbk_contacts",
   });
 };
 

@@ -213,6 +213,9 @@ export const FormPersonalData = ({
       });
       setLeadSent(true);
       onLeadSent();
+      setTimeout(() => {
+        window.scrollTo({ top: 10000 });
+      }, 100)
     } catch (err) {
       console.log(err)
       notification.error({
