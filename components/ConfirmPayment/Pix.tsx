@@ -35,7 +35,7 @@ export const Pix = ({ pixData, onPixPaid }: PixProps) => {
     gTavEvent('event', 'conversion', {
       'send_to': 'AW-319350377/p2p_CPXKrIwYEOnMo5gB',
       'event_callback': () => {},
-    })
+    });
   };
 
   const checkPixPayment = async () => {

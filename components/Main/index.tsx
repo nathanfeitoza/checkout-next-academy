@@ -14,6 +14,7 @@ import { OnlyNumber } from "../../utils/onlyNumber";
 import { DefaultButton } from "../../styles/Global";
 import { CenterLayout } from "../CenterLayout";
 import { gTavEvent } from "../../utils/gTagEvent";
+import { triggerlead } from "../../services/contact";
 
 /*
 Payment sucessulldata test
@@ -49,7 +50,7 @@ export const Main: React.FC = () => {
   const [actualStep, setActualStep] = useState(1);
   const [actualForm, setActualForm] = useState("personal");
   const [personalData, setPersonalData] = useState<any>({});
-  const [paymentSuccefullData, setPaymentSuccefullData] = useState();
+  const [paymentSuccefullData, setPaymentSuccefullData] = useState<any>();
   const [loading, setLoading] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState("credit_card");
   const [leadSent, setLeadSent] = useState(false);
@@ -136,6 +137,15 @@ export const Main: React.FC = () => {
 
       const { data } = await pay(paymentDataSend);
 
+      if (selectedPayment === "credit_card") {
+        await triggerlead({
+          name: paymentDataSend.name,
+          phone: paymentDataSend.phone_number,
+          email: paymentDataSend.email,
+          tag: 'Lead_ic_cc'
+        });
+      }
+
       if (
         data?.message === "payment_error" ||
         (data?.data || {})?.status === "not_authorized"
@@ -166,10 +176,25 @@ export const Main: React.FC = () => {
       } as any);
 
       if (selectedPayment != "credit_card") {
+        await triggerlead({
+          name: paymentDataSend.name,
+          phone: paymentDataSend.phone_number,
+          email: paymentDataSend.email,
+          tag: 'Lead_ic_geroupix'
+        });
         setTimeout(() => {
           window.scrollTo({ top: window.pageYOffset * 1.45 });
         }, 250);
+
+        return;
       }
+
+      await triggerlead({
+        name: paymentDataSend.name,
+        phone: paymentDataSend.phone_number,
+        email: paymentDataSend.email,
+        tag: 'Lead_buyers'
+      });
     } catch (err) {
       console.log(err);
       notification.error({
@@ -192,7 +217,7 @@ export const Main: React.FC = () => {
     (document as any).querySelector("#button-continue-form-data").click();
   };
 
-  const handlePixPaid = () => {
+  const handlePixPaid = async () => {
     setHeaderTitle(null as any);
     setHeaderSubtitle(null as any);
     setActualForm(null as any);

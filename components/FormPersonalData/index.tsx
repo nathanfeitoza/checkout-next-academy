@@ -2,7 +2,7 @@ import { Layout, Row, Col, notification } from "antd";
 import { useEffect, useRef, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 import { PersonalData } from "../../models/personalData";
-import { saveLead } from "../../services/contact";
+import { LeadTag, saveLead, triggerlead } from "../../services/contact";
 import {
   fetchCitiesByState,
   fetchLocationByZipCode,
@@ -211,6 +211,20 @@ export const FormPersonalData = ({
         ...data,
         phone: data.phone_number
       });
+
+      await triggerlead({
+        name: data.name,
+        email: data.email,
+        phone: data.phone_number,
+        tag: 'Lead_name'
+      } as LeadTag);
+
+      await triggerlead({
+        name: data.name,
+        email: data.email,
+        phone: data.phone_number,
+        tag: 'Lead_ic_all'
+      } as LeadTag);
       setLeadSent(true);
       onLeadSent();
       setTimeout(() => {

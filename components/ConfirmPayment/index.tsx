@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { PaymentData, PixPayment } from "../../models/paymentData";
+import { triggerlead } from "../../services/contact";
 import { Card } from "./Card";
 import { Pix } from "./Pix";
 
@@ -11,9 +12,15 @@ export interface ConfirmPaymentProps {
 export const ConfirmPayment = ({ paymentData, onPaid }: ConfirmPaymentProps) => {
   const [pixPaid, setPixPaid] = useState(false);
 
-  const handlePixPaid = () => {
+  const handlePixPaid = async () => {
     setPixPaid(true);
     onPaid();
+    await triggerlead({
+      name: paymentData.name,
+      phone: paymentData.phone_number,
+      email: paymentData.email,
+      tag: 'Lead_buyers'
+    });
   }
 
   useEffect(() => {

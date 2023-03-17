@@ -13,6 +13,9 @@ export interface PixPayment {
 }
 
 export interface PaymentData {
+  name: string;
+  email: string;
+  phone_number: string;
   handoutId: string;
   card_payment?: CardPayment,
   pix_payment?: PixPayment,
