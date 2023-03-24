@@ -1,7 +1,7 @@
 import { Col, Row } from "antd";
 import Image from "next/image";
 import { CenterLayout } from "../CenterLayout";
-import { StepText, SubtitleText, TitleText } from "./styles";
+import { RowInitial, StepText, SubtitleText, TitleText } from "./styles";
 
 export interface NextHeaderProps {
   title?: string;
@@ -28,7 +28,7 @@ export const NextHeader = ({
     <CenterLayout className="justify-to-50">
       {title && (
         <>
-          <Row style={{ paddingTop: "5rem", alignItems: "center" }}>
+          <RowInitial>
             <Col span={12}>
               <Image
                 alt="Logo Next Academy"
@@ -37,18 +37,13 @@ export const NextHeader = ({
                 src="/checkout-unbk/assets/logo-next.png"
               />
             </Col>
-            <Col span={11} offset={1}>
-              <StepText>
-                PASSO {actualStep} de {stepsCount}
-              </StepText>
-            </Col>
-          </Row>
+          </RowInitial>
           <Row>
             <Col span={12}>
               <TitleText>{title}</TitleText>
             </Col>
           </Row>
-          <Row style={{ paddingBottom: isPaymentStep ? "0.5rem" : "2rem" }}>
+          <Row style={{ paddingBottom: "0.5rem" }}>
             <Col span={12}>
               <SubtitleText>{subtitle}</SubtitleText>
             </Col>

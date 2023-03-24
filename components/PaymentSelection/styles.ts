@@ -27,6 +27,10 @@ export const PaymentPriceText = styled.h1`
   font-size: 24px;
   line-height: 119.2%;
   color: #FFFFFF;
+
+  @media only screen and (max-width: 768px) {
+    font-size: 23px;
+  }
 `;
 
 export const PaymentTypeContainer = styled.div`

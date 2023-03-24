@@ -36,7 +36,11 @@ a {
 }
 
 .input-row {
-  margin-bottom: 1rem;
+  margin-bottom: .5rem;
+}
+
+select, input {
+  max-height: 42px;
 }
 
 .styles__Header-sc-1fn4imv-0 {

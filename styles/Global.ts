@@ -52,7 +52,7 @@ export const DefaultButton = styled(Button)`
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 700;
-  font-size: 18px;
+  font-size: 16.5px;
   line-height: 27px;
   text-align: center;
   color: #FFFFFF;

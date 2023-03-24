@@ -35,8 +35,8 @@ Payment sucessulldata test
 
 const DEFAULT_TITLE_HEADER = {
   title:
-    "Apenas 60 atletas participam na seletiva de futebol. Você é um deles?",
-  subtitle: "Finalize a inscrição e garanta sua vaga!",
+    "Apenas 60 atletas participam na seletiva de futebol. Não perca essa oportunidade e garanta a sua vaga!",
+  subtitle: "Preencha seus dados para realizar a sua inscrição.",
 };
 
 const STEPS_COUNT = 2;
@@ -146,9 +146,11 @@ export const Main: React.FC = () => {
         });
       }
 
+      const CARD_ERRORS_STATUS = ["not_authorized","failed"]
+
       if (
         data?.message === "payment_error" ||
-        (data?.data || {})?.status === "not_authorized"
+        CARD_ERRORS_STATUS.includes((data?.data || {})?.status)
       ) {
         notification.error({
           message: "Erro ao processar pagamento",

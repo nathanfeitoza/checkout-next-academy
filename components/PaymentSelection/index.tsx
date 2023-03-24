@@ -95,7 +95,7 @@ export const PaymentSelection = ({
 
   return (
     <CenterLayout>
-      <Row style={{ paddingTop: "1rem", marginBottom: "0rem" }}>
+      <Row style={{ paddingTop: "0rem", marginBottom: "0rem" }}>
         <SectionTitle>Detalhes do pedido</SectionTitle>
       </Row>
       <Row style={{ marginBottom: "1rem" }}>

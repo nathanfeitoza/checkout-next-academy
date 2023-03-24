@@ -1,5 +1,6 @@
 import { Col, Row } from "antd";
 import { useState } from "react";
+import { INTEREST, MAX_INSTALLMENTS, PRODUCT_VALUE } from "../../constants";
 import { cardCvvMask, cardDueMask, cardNumberMask } from "../../utils/mask";
 import { InputRegistered } from "../InputRegistered";
 import { ItemContainer } from "./styles";
@@ -9,48 +10,26 @@ export interface CardFormProps {
   errors: any;
   watch: any;
 }
+const INSTALLMENTS_CALC = Array(MAX_INSTALLMENTS).fill(0).map((_, index) => {
+  if (index === 0) {
+    return null;
+  }
+
+  const installment = index + 1;
+  const installmentValue = String( (PRODUCT_VALUE * ((1 + (INTEREST * installment))))/installment );
+
+  return {
+    label: `${installment}x de R$${parseFloat(installmentValue).toFixed(2).replace('.', ',')} - com juros (${INTEREST * 100}% a.m.)`,
+    value: installment,
+  };
+}).filter((value: any) => value !== null);
 
 const DEFAULT_INSTALLMENTS = [
   {
-    label: "R$297 - A vista (sem juros)",
+    label: `1x de R$${PRODUCT_VALUE} - sem juros`,
     value: "1",
   },
-  {
-    label: "2",
-    value: "2",
-  },
-  {
-    label: "3",
-    value: "3",
-  },
-  {
-    label: "4",
-    value: "4",
-  },
-  {
-    label: "5",
-    value: "5",
-  },
-  {
-    label: "6",
-    value: "6",
-  },
-  {
-    label: "7",
-    value: "7",
-  },
-  {
-    label: "8",
-    value: "8",
-  },
-  {
-    label: "9",
-    value: "9",
-  },
-  {
-    label: "10",
-    value: "10",
-  },
+  ...INSTALLMENTS_CALC,
 ];
 
 export const CardForm = ({ control, errors }: CardFormProps) => {

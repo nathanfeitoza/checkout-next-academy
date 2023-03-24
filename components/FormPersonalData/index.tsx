@@ -348,13 +348,13 @@ export const FormPersonalData = ({
         </Row>
         {!leadSent && (
           <Row className="input-row">
-            <Col span={24}>
+            <Col span={24} style={{ marginTop: ".7rem" }}>
               <DefaultButton
                 onClick={handlePressContinue}
                 htmlType="submit"
                 loading={loading}
               >
-                Prosseguir para o pagamento
+                Clique aqui para continuar
               </DefaultButton>
             </Col>
           </Row>
