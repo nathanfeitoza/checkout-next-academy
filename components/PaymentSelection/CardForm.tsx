@@ -96,7 +96,7 @@ export const CardForm = ({ control, errors }: CardFormProps) => {
             label="Parcelamento"
             name="installments"
             style={{ width: "100%" }}
-            options={installments}
+            options={installments as any}
             input_type="select"
             control={control}
             rules={{ required: true, maxLength: 255 }}

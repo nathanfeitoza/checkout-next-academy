@@ -57,63 +57,91 @@ const BRASIL_STATES = [
 
 const SELECTIVE_STATES = [
   { value: "", label: "" },
-  { value: "VOLTA REDONDA/RJ", label: "VOLTA REDONDA/RJ - 26/03/2023" },
-  { value: "FOZ DO IGUAÇU/PR", label: "FOZ DO IGUAÇU/PR - 26/03/2023" },
-  { value: "BARUERI/SP", label: "BARUERI/SP - 26/03/2023" },
-  { value: "CUIABÁ/MT", label: "CUIABÁ/MT - 26/03/2023" },
-  { value: "SALVADOR/BA-", label: "SALVADOR/BA - 26/03/2023" },
-  { value: "SANTO ANDRÉ/SP", label: "SANTO ANDRÉ/SP - 26/03/2023" },
-  { value: "CAMPO GRANDE/RJ", label: "CAMPO GRANDE/RJ - 26/03/2023" },
-  { value: "BELÉM/PA", label: "BELÉM/PA - 26/03/2023" },
-  { value: "NITERÓI/RJ", label: "NITERÓI/RJ - 26/03/2023" },
-  { value: "FORTALEZA/CE", label: "FORTALEZA/CE - 26/03/2023" },
-  { value: "BAURU/SP", label: "BAURU/SP - 26/02/2023" },
-  { value: "MORUMBI/SP", label: "MORUMBI/SP - 19/03/2023" },
-  { value: "BOA VISTA/RR", label: "BOA VISTA/RR - 26/02/2023" },
-  { value: "ARACAJU/SE", label: "ARACAJU/SE - 04/03/2023" },
-  { value: "MONTES CLAROS/MG", label: "MONTES CLAROS/MG - 04/03/2023" },
-  { value: "DIVINÓPOLIS/MG", label: "DIVINÓPOLIS/MG - 04/03/2023" },
-  { value: "MACEIÓ/AL", label: "MACEIÓ/AL - 05/03/2023" },
-  { value: "PORTO VELHO/RO", label: "PORTO VELHO/RO - 04/03/2023" },
-  { value: "VITÓRIA/ES", label: "VITÓRIA/ES - 04/03/2023" },
+  { label: "MONTES CLAROS/MG - 30/04/2023", value: "MONTES CLAROS/MG" },
+  { label: "DIVINÓPOLIS/MG - 30/04/2023", value: "DIVINÓPOLIS/MG" },
+  { label: "MACEIÓ/AL - 30/04/2023", value: "MACEIÓ/AL" },
+  { label: "PORTO VELHO/RO - 30/04/2023", value: "PORTO VELHO/RO" },
+  { label: "ARACAJU/SE - 30/04/2023", value: "ARACAJU/SE" },
+  { label: "RIO BRANCO/AC - 30/04/2023", value: "RIO BRANCO/AC" },
+  { label: "MARINGÁ/PR - 30/04/2023", value: "MARINGÁ/PR" },
+  { label: "JOINVILLE/SC - 30/04/2023", value: "JOINVILLE/SC" },
+  { label: "OSASCO/SP - 30/04/2023", value: "OSASCO/SP" },
   {
-    value: "SÃO JOSÉ DO RIO PRETO/SP",
-    label: "SÃO JOSÉ DO RIO PRETO/SP - 05/03/2023",
-  },
-  { value: "PALMAS/TO", label: "PALMAS/TO - 05/03/2023" },
-  { value: "SÃO LUIS/MA", label: "SÃO LUIS/MA - 05/03/2023" },
-  { value: "AMERICANA/SP", label: "AMERICANA/SP - 05/03/2023" },
-  { value: "RIO BRANCO/AC", label: "RIO BRANCO/AC - 11/03/2023" },
-  { value: "MARINGÁ/PR", label: "MARINGÁ/PR - 11/03/2023" },
-  { value: "JOINVILLE/SC", label: "JOINVILLE/SC - 11/03/2023" },
-  { value: "PONTA GROSSA/PR", label: "PONTA GROSSA/PR - 11/03/2023" },
-  { value: "VARGINHA/MG", label: "VARGINHA/MG - 11/03/2023" },
-  { value: "OSASCO/SP", label: "OSASCO/SP - 11/03/2023" },
-  {
+    label: "SÃO PAULO (VILA PRUDENTE) - 30/04/2023",
     value: "SÃO PAULO (VILA PRUDENTE)",
-    label: "SÃO PAULO (VILA PRUDENTE) - 11/03/2023",
   },
-  { value: "COTIA/SP", label: "COTIA/SP - 11/03/2023" },
-  { value: "GUARULHOS/SP", label: "GUARULHOS/SP - 11/03/2023" },
-  { value: "IPATINGA/MG", label: "IPATINGA/MG - 11/03/2023" },
-  { value: "IPATINGA/MG", label: "IPATINGA/MG - 11/03/2023" },
-  { value: "MOGI DAS CRUZES/SP", label: "MOGI DAS CRUZES/SP - 11/03/2023" },
-  { value: "MACAPÁ/AP", label: "MACAPÁ/AP - 11/03/2023" },
-  { value: "MANAUS/AM", label: "MANAUS/AM - 11/03/2023" },
+  { label: "COTIA/SP - 30/04/2023", value: "COTIA/SP" },
+  { label: "GUARULHOS/SP - 30/04/2023", value: "GUARULHOS/SP" },
+  { label: "IPATINGA/MG - 30/04/2023", value: "IPATINGA/MG" },
+  { label: "IPATINGA/MG - 30/04/2023", value: "IPATINGA/MG" },
+  { label: "MOGI DAS CRUZES/SP - 30/04/2023", value: "MOGI DAS CRUZES/SP" },
+  { label: "MACAPÁ/AP - 30/04/2023", value: "MACAPÁ/AP" },
+  { label: "MANAUS/AM - 30/04/2023", value: "MANAUS/AM" },
+  { label: "BARRA FUNDA/SP - 30/04/2023", value: "BARRA FUNDA/SP" },
+  { label: "VITÓRIA/ES - 30/04/2023", value: "VITÓRIA/ES" },
+  { label: "FOZ DO IGUAÇU/PR - 30/04/2023", value: "FOZ DO IGUAÇU/PR" },
+  { label: "JUIZ DE FORA/MG - 30/04/2023", value: "JUIZ DE FORA/MG" },
+  { label: "LONDRINA/PR - 30/04/2023", value: "LONDRINA/PR" },
+  { label: "VOLTA REDONDA/RJ - 30/04/2023", value: "VOLTA REDONDA/RJ" },
+  { label: "GOIÂNIA/GO - 30/04/2023", value: "GOIÂNIA/GO" },
+  { label: "TERESINA/PI - 30/04/2023", value: "TERESINA/PI" },
+  { label: "BOA VISTA/RR - 30/04/2023", value: "BOA VISTA/RR" },
+  { label: "PONTA GROSSA/PR - 30/04/2023", value: "PONTA GROSSA/PR" },
+  { label: "AMERICANA/SP - 30/04/2023", value: "AMERICANA/SP" },
   {
+    label: "PRESIDENTE PRUDENTE/SP - 30/04/2023",
     value: "PRESIDENTE PRUDENTE/SP",
-    label: "PRESIDENTE PRUDENTE/SP - 12/03/2023",
   },
-  { value: "JUIZ DE FORA/MG", label: "JUIZ DE FORA/MG - 18/03/2023" },
-  { value: "LONDRINA/PR", label: "LONDRINA/PR - 18/03/2023" },
-  { value: "GOIÂNIA/GO", label: "GOIÂNIA/GO - 19/03/2023" },
-  { value: "TERESINA/PI", label: "TERESINA/PI - 19/03/2023" },
-  { value: "SANTO ANDRÉ/SP", label: "SANTO ANDRÉ/SP - 25/03/2023" },
-  { value: "SINOP/MT", label: "SINOP/MT - 25/03/2023" },
-  { value: "PORTO VELHO/RO", label: "PORTO VELHO/RO - 25/03/2023" },
-  { value: "VITÓRIA/ES", label: "VITÓRIA/ES - 26/03/2023" },
-  { value: "SÃO PAULO (BERRINI)", label: "SÃO PAULO (BERRINI) - 26/03/2023" },
-  { value: "MARABÁ/PA", label: "MARABÁ/PA - 09/04/2023" },
+  {
+    label: "SÃO JOSÉ DO RIO PRETO/SP - 30/04/2023",
+    value: "SÃO JOSÉ DO RIO PRETO/SP",
+  },
+  { label: "CAMPO GRANDE/RJ - 30/04/2023", value: "CAMPO GRANDE/RJ" },
+  { label: "MACEIÓ/AL - 30/04/2023", value: "MACEIÓ/AL" },
+  { label: "JOÃO PESSOA/PB - 30/04/2023", value: "JOÃO PESSOA/PB" },
+  { label: "SANTO ANDRÉ/SP - 30/04/2023", value: "SANTO ANDRÉ/SP" },
+  { label: "SINOP/MT - 30/04/2023", value: "SINOP/MT" },
+  { label: "PORTO VELHO/RO - 30/04/2023", value: "PORTO VELHO/RO" },
+  { label: "NITERÓI/RJ - 30/04/2023", value: "NITERÓI/RJ" },
+  { label: "BARUERI/SP - 30/04/2023", value: "BARUERI/SP" },
+  { label: "MORUMBI/SP - 30/04/2023", value: "MORUMBI/SP" },
+  { label: "SÃO PAULO (BERRINI) - 30/04/2023", value: "SÃO PAULO (BERRINI)" },
+  { label: "PALMAS/TO - 30/04/2023", value: "PALMAS/TO" },
+  { label: "FORTALEZA/CE - 30/04/2023", value: "FORTALEZA/CE" },
+  { label: "BAURU/SP - 30/04/2023", value: "BAURU/SP" },
+  { label: "CUIABÁ/MT - 02/04/2023", value: "CUIABÁ/MT" },
+  { label: "FRANCA/SP - 01/04/2023", value: "FRANCA/SP" },
+  { label: "SÃO LUIS/MA - 02/04/2023", value: "SÃO LUIS/MA" },
+  { label: "CAMPO GRANDE/MS - 08/04/2023", value: "CAMPO GRANDE/MS" },
+  { label: "MARINGÁ/PR - 08/04/2023", value: "MARINGÁ/PR" },
+  { label: "MACAÉ/RJ - 08/04/2023", value: "MACAÉ/RJ" },
+  { label: "MARABÁ/PA - 09/04/2023", value: "MARABÁ/PA" },
+  {
+    label: "VITÓRIA DA CONQUISTA/BA - 15/04/2023",
+    value: "VITÓRIA DA CONQUISTA/BA",
+  },
+  { label: "VARGINHA/MG - 15/04/2023", value: "VARGINHA/MG" },
+  { label: "BELÉM/PA - 15/04/2023", value: "BELÉM/PA" },
+  { label: "SINOP/MT - 15/04/2023", value: "SINOP/MT" },
+  { label: "VITÓRIA/ES - 16/04/2023", value: "VITÓRIA/ES" },
+  { label: "IPATINGA/MG - 15/04/2023", value: "IPATINGA/MG" },
+  { label: "OSASCO/SP - 15/04/2023", value: "OSASCO/SP" },
+  { label: "GUARULHOS/SP - 15/04/2023", value: "GUARULHOS/SP" },
+  { label: "PORTO VELHO/RO - 16/04/2023", value: "PORTO VELHO/RO" },
+  { label: "GOIÂNIA/GO - 16/04/2023", value: "GOIÂNIA/GO" },
+  { label: "BARRA FUNDA/SP - 22/04/2023", value: "BARRA FUNDA/SP" },
+  { label: "ARACAJU/SE - 22/04/2023", value: "ARACAJU/SE" },
+  { label: "MACAPÁ/AP - 22/04/2023", value: "MACAPÁ/AP" },
+  { label: "BARUERI/SP - 29/04/2023", value: "BARUERI/SP" },
+  { label: "FOZ DO IGUAÇU/PR - 29/04/2023", value: "FOZ DO IGUAÇU/PR" },
+  { label: "GOIÂNIA/GO - 30/04/2023", value: "GOIÂNIA/GO" },
+  { label: "DIVINÓPOLIS/MG - 06/05/2023", value: "DIVINÓPOLIS/MG" },
+  { label: "MONTES CLAROS/MG - 06/05/2023", value: "MONTES CLAROS/MG" },
+  {
+    label: "APARECIDA DE GOIÂNIA/GO - 07/05/2023",
+    value: "APARECIDA DE GOIÂNIA/GO",
+  },
+  { label: "DOURADOS/MS - 28/05/2023", value: "DOURADOS/MS" },
 ].sort(function (a, b) {
   if (a.label < b.label) {
     return -1;
@@ -209,29 +237,29 @@ export const FormPersonalData = ({
     try {
       await saveLead({
         ...data,
-        phone: data.phone_number
+        phone: data.phone_number,
       });
 
       await triggerlead({
         name: data.name,
         email: data.email,
         phone: data.phone_number,
-        tag: 'Lead_name'
+        tag: "Lead_name",
       } as LeadTag);
 
       await triggerlead({
         name: data.name,
         email: data.email,
         phone: data.phone_number,
-        tag: 'Lead_ic_all'
+        tag: "Lead_ic_all",
       } as LeadTag);
       setLeadSent(true);
       onLeadSent();
       setTimeout(() => {
         window.scrollTo({ top: 10000 });
-      }, 100)
+      }, 100);
     } catch (err) {
-      console.log(err)
+      console.log(err);
       notification.error({
         message: "Erro ao prosseguir para o pagamento",
         duration: 3.5,
@@ -285,20 +313,20 @@ export const FormPersonalData = ({
         <SectionTitle>Seus Dados</SectionTitle>
       </Row>
       <form onSubmit={handleSubmit(onSubmit)}>
-      <Row className="input-row">
-              <Col span={24}>
-                <InputRegistered
-                  label="Escolha a seletiva mais perto de você"
-                  name="seletiva"
-                  input_type="select"
-                  options={SELECTIVE_STATES}
-                  rules={{ required: true }}
-                  errors={errors}
-                  control={control}
-                  placeholder="Escolha o local"
-                />
-              </Col>
-            </Row>
+        <Row className="input-row">
+          <Col span={24}>
+            <InputRegistered
+              label="Escolha a seletiva mais perto de você"
+              name="seletiva"
+              input_type="select"
+              options={SELECTIVE_STATES}
+              rules={{ required: true }}
+              errors={errors}
+              control={control}
+              placeholder="Escolha o local"
+            />
+          </Col>
+        </Row>
         <Row className="input-row">
           <Col span={24}>
             <InputRegistered
