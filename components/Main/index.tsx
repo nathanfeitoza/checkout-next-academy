@@ -35,7 +35,7 @@ Payment sucessulldata test
 
 const DEFAULT_TITLE_HEADER = {
   title:
-    "Apenas 60 atletas participam na seletiva de futebol. Não perca essa oportunidade e garanta a sua vaga!",
+    "Apenas 60 atletas participam da seletiva de futebol. Então é melhor você correr...",
   subtitle: "Preencha seus dados para realizar a sua inscrição.",
 };
 
