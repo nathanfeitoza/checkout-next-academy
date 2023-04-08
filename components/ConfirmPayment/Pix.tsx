@@ -16,11 +16,6 @@ export interface PixProps {
   onPixPaid: () => void;
 }
 
-const TRANSACTION_STATUS = {
-  PENDING: "pending",
-  PAID: "paid",
-};
-
 let firstRun = true;
 
 export const Pix = ({ pixData, onPixPaid }: PixProps) => {
@@ -45,7 +40,6 @@ export const Pix = ({ pixData, onPixPaid }: PixProps) => {
 
     setChecking(true);
 
-    
     try {
       const fbPixel = await Pixel();
       const { data } = await checkPayment(pixData.handoutId);

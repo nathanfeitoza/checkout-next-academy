@@ -14,6 +14,7 @@ import { useEffect } from "react";
 import { Pixel } from "../../services/pixel";
 import { gTavEvent } from "../../utils/gTagEvent";
 import { FormIndication } from "./FormIndication";
+import { PRODUCT_VALUE } from "../../constants";
 
 export const Card = ({ handoutId }: { handoutId: string }) => {
   const tiggerEvent = async () => {
@@ -24,12 +25,11 @@ export const Card = ({ handoutId }: { handoutId: string }) => {
       fbPixel.track('Compra');
       gTavEvent('event', 'conversion', {
         'send_to': 'AW-319350377/oISzCLXYqowYEOnMo5gB',
-        'value': 297.0,
+        'value': PRODUCT_VALUE,
         'currency': 'BRL',
         'transaction_id': '',
         'event_callback': () => {}
       });
-  
   }
 
   useEffect(() => {

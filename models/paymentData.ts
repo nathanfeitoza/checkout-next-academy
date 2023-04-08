@@ -6,12 +6,6 @@ export interface CardPayment {
   card_installments: string;
 }
 
-export interface PixPayment {
-  img_url: string;
-  copy_and_paste_code: string;
-  handoutId: string;
-}
-
 export interface PaymentData {
   name: string;
   email: string;
@@ -20,4 +14,10 @@ export interface PaymentData {
   card_payment?: CardPayment,
   pix_payment?: PixPayment,
   type: "credit_card" | "pix";
+}
+
+export interface PixPayment {
+  img_url: string;
+  copy_and_paste_code: string;
+  handoutId: string;
 }

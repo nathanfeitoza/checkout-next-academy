@@ -1,8 +1,8 @@
 import ReactPixel from "react-facebook-pixel";
 
 const PixelWithScript = {
-  track: (title: string, data: any) => (window as any).fbq('track', title, data),
-  trackCustom: (event: string, data: any) => (window as any).fbq('trackCustom', event, data),
+  track: (title: string, data?: any) => (window as any).fbq('track', title, data),
+  trackCustom: (event: string, data?: any) => (window as any).fbq('trackCustom', event, data),
   pageView: () => (window as any).fbq("track", "PageView"),
 }
 

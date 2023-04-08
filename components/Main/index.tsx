@@ -14,7 +14,8 @@ import { OnlyNumber } from "../../utils/onlyNumber";
 import { DefaultButton } from "../../styles/Global";
 import { CenterLayout } from "../CenterLayout";
 import { gTavEvent } from "../../utils/gTagEvent";
-import { triggerlead } from "../../services/contact";
+import { triggerConfirmPayment, triggerPendingPayment } from "../../services/contact";
+import { LeadPaymentType, LeadPendingPayment } from "../../types/contactType";
 
 /*
 Payment sucessulldata test
@@ -112,7 +113,7 @@ export const Main: React.FC = () => {
       keysOnlyNumbers.map(
         (item) => (paymentDataSend[item] = OnlyNumber(paymentDataSend[item]))
       );
-
+      const realPhoneNumber = paymentDataSend.phone_number;
       paymentDataSend.phone_area_code = paymentDataSend.phone_number?.slice(
         0,
         2
@@ -135,15 +136,30 @@ export const Main: React.FC = () => {
 
       delete paymentDataSend.type;
 
+      const leadData: LeadPendingPayment = {
+        name: paymentDataSend.name,
+        phone: realPhoneNumber,
+        email: paymentDataSend.email,
+        payment_type: paymentDataSend.method === "pix" ? LeadPaymentType.PIX : LeadPaymentType.CREDIT_CARD,
+        event_type: "pagamento_pendente",
+        value: PRODUCT_VALUE,
+        order_id: (new Date()).getTime()
+      }
+      
+      if (leadData.payment_type === LeadPaymentType.CREDIT_CARD) {
+        triggerPendingPayment(leadData).catch((error) => console.log('Erro ao criar pagamento pendente', error));
+      }
+
       const { data } = await pay(paymentDataSend);
 
-      if (selectedPayment === "credit_card") {
-        await triggerlead({
-          name: paymentDataSend.name,
-          phone: paymentDataSend.phone_number,
-          email: paymentDataSend.email,
-          tag: 'Lead_ic_cc'
-        });
+      if (leadData.payment_type === LeadPaymentType.PIX) {
+        triggerPendingPayment({
+          ...leadData,
+          pix_bacen_code: data?.data?.qr_code,
+          pix_qr_code: data?.data?.qr_code,
+          pix_url: data?.data?.qr_code_url,
+          pix_due_date: data?.data?.expires_at,
+        }).catch((error) => console.log('Erro ao criar pagamento pendente', error));
       }
 
       const CARD_ERRORS_STATUS = ["not_authorized","failed"]
@@ -178,12 +194,6 @@ export const Main: React.FC = () => {
       } as any);
 
       if (selectedPayment != "credit_card") {
-        await triggerlead({
-          name: paymentDataSend.name,
-          phone: paymentDataSend.phone_number,
-          email: paymentDataSend.email,
-          tag: 'Lead_ic_geroupix'
-        });
         setTimeout(() => {
           window.scrollTo({ top: window.pageYOffset * 1.45 });
         }, 250);
@@ -191,12 +201,10 @@ export const Main: React.FC = () => {
         return;
       }
 
-      await triggerlead({
-        name: paymentDataSend.name,
-        phone: paymentDataSend.phone_number,
-        email: paymentDataSend.email,
-        tag: 'Lead_buyers'
-      });
+      if (selectedPayment === "credit_card") {
+        triggerConfirmPayment(leadData).catch((error) => console.log("Error to send confirmation payment", error));
+      }
+
     } catch (err) {
       console.log(err);
       notification.error({

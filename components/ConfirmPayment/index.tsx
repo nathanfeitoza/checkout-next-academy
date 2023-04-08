@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { PaymentData, PixPayment } from "../../models/paymentData";
-import { triggerlead } from "../../services/contact";
 import { Card } from "./Card";
 import { Pix } from "./Pix";
+import { triggerConfirmPayment } from "../../services/contact";
 
 export interface ConfirmPaymentProps {
   paymentData: PaymentData;
@@ -14,13 +14,8 @@ export const ConfirmPayment = ({ paymentData, onPaid }: ConfirmPaymentProps) => 
 
   const handlePixPaid = async () => {
     setPixPaid(true);
+    triggerConfirmPayment().catch((error) => console.log("Error to send confirm payment", error))
     onPaid();
-    await triggerlead({
-      name: paymentData.name,
-      phone: paymentData.phone_number,
-      email: paymentData.email,
-      tag: 'Lead_buyers'
-    });
   }
 
   useEffect(() => {
