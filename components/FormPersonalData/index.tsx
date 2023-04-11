@@ -33,7 +33,7 @@ const SELECTIVE_STATES = [
   { label: "SÃO PAULO/SP - 30/04/2023", value: "SÃO PAULO/SP" },
   { label: "SÃO LUIS/MA - 02/04/2023", value: "SÃO LUIS/MA" },
   {
-    label: "SÃO JOSÉ DO RIO PRETO/SP - 29/10/2023",
+    label: "SÃO JOSÉ DO RIO PRETO/SP - 07/05/2023",
     value: "SÃO JOSÉ DO RIO PRETO/SP",
   },
   { label: "SANTO ANDRÉ/SP - 28/05/2023", value: "SANTO ANDRÉ/SP" },
