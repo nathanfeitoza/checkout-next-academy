@@ -14,6 +14,7 @@ import {
   PaymentTypeItem,
   PaymentTypeRadioContainer,
 } from "./styles";
+import { PRODUCT_NAME, PRODUCT_VALUE } from "../../constants";
 
 export interface PaymentSelectionProps {
   onPay: (paymentData: PaymentData) => any;
@@ -100,8 +101,8 @@ export const PaymentSelection = ({
       </Row>
       <Row style={{ marginBottom: "1rem" }}>
         <PaymentPriceContainer>
-          <PaymentPriceText>Seletiva Next Academy</PaymentPriceText>
-          <PaymentPriceText>R$ 297</PaymentPriceText>
+          <PaymentPriceText>{PRODUCT_NAME}</PaymentPriceText>
+          <PaymentPriceText>R$ {PRODUCT_VALUE}</PaymentPriceText>
         </PaymentPriceContainer>
       </Row>
       {leadSent && (
