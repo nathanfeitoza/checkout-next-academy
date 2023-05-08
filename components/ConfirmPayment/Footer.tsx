@@ -11,7 +11,7 @@ export const Footer = () => {
         Se liga nas nossas redes sociais
         </FooterTitle>
       </Row>
-      <Row style={{ width: "16%", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+      <Row style={{ width: "30%", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <a href="#">
             <Image width={24} height={24} src="/checkout-unbk/assets/instagram.png" alt="Instagram profile" />
           </a>

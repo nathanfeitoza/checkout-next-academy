@@ -116,6 +116,18 @@ export const cardDueMask = masker({
   }
 });
 
+export const DateMask = masker({
+  masked: {
+    mask: "00/00/0000",
+    transform: (value: string) => {
+      return DateMask.unmask(value);
+    },
+    maskDefault: (value: number) => {
+      return DateMask.mask(value);
+    }
+  }
+});
+
 export const cardNumberMask = masker({
   masked: {
     mask: "0000 0000 0000 0000",

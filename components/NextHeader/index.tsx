@@ -1,12 +1,12 @@
 import { Col, Row } from "antd";
 import Image from "next/image";
 import { CenterLayout } from "../CenterLayout";
-import { RowInitial, StepText, SubtitleText, TitleText } from "./styles";
+import { DescriptionText, RowInitial, StepText, SubtitleText, TitleText } from "./styles";
 
 export interface NextHeaderProps {
   title?: string;
   subtitle?: string;
-  stepsCount?: number;
+  description?: string;
   actualStep?: number;
   onBack?: (actualStep: number) => void;
 }
@@ -14,8 +14,8 @@ export interface NextHeaderProps {
 export const NextHeader = ({
   title,
   subtitle,
-  stepsCount,
   actualStep,
+  description,
   onBack,
 }: NextHeaderProps) => {
   const isPaymentStep = actualStep === 3;
@@ -25,27 +25,22 @@ export const NextHeader = ({
   }
 
   return (
-    <CenterLayout className="justify-to-50">
+    <CenterLayout span={24} offset={1} className="justify-to-50">
       {title && (
         <>
-          <RowInitial>
-            <Col span={12}>
-              <Image
-                alt="Logo Next Academy"
-                width={119}
-                height={43}
-                src="/checkout-unbk/assets/logo-next.png"
-              />
-            </Col>
-          </RowInitial>
           <Row>
             <Col span={12}>
               <TitleText>{title}</TitleText>
             </Col>
           </Row>
           <Row style={{ paddingBottom: "0.5rem" }}>
-            <Col span={12}>
+            <Col span={7}>
               <SubtitleText>{subtitle}</SubtitleText>
+            </Col>
+          </Row>
+          <Row style={{ paddingBottom: "0.5rem" }}>
+            <Col span={12}>
+              <DescriptionText>{description}</DescriptionText>
             </Col>
           </Row>
           {isPaymentStep && (

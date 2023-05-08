@@ -15,7 +15,7 @@ export const TitleText = styled.h1`
   font-family: 'Poppins';
   font-style: normal;
   font-weight: 700;
-  font-size: 20px;
+  font-size: 48px;
   line-height: 119.2%;
   color: #FFFFFF;
 
@@ -29,6 +29,15 @@ export const TitleText = styled.h1`
 export const SubtitleText = styled.h1`
   font-family: 'Poppins';
   font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 119.2%;
+  color: #FFFFFF;
+`;
+
+export const DescriptionText = styled.h1`
+  font-family: 'Poppins';
+  font-style: normal;
   font-weight: 400;
   font-size: 14px;
   line-height: 119.2%;
@@ -40,6 +49,6 @@ export const RowInitial = styled(Row)`
   align-items: center;
 
   @media only screen and (max-width: 768px) {
-    padding-top: .1rem;
+    padding-top: 2rem;
   }
 `;

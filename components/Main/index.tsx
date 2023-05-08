@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Layout, Row, Col, notification } from "antd";
-import { Container, Header } from "./styles";
+import { ColPersonal, ColPersonal2, ContainerInitial, Header } from "./styles";
 import { NextHeader } from "../NextHeader";
 import { FormPersonalData } from "../FormPersonalData";
 import { PersonalData } from "../../models/personalData";
@@ -16,6 +16,9 @@ import { CenterLayout } from "../CenterLayout";
 import { gTavEvent } from "../../utils/gTagEvent";
 import { triggerConfirmPayment, triggerPendingPayment } from "../../services/contact";
 import { LeadPaymentType, LeadPendingPayment } from "../../types/contactType";
+import { RowInitial } from "../NextHeader/styles";
+import Image from "next/image";
+import { EventInformation } from "../EventInformation";
 
 /*
 Payment sucessulldata test
@@ -35,19 +38,14 @@ Payment sucessulldata test
 */
 
 const DEFAULT_TITLE_HEADER = {
-  title:
-    "Apenas 60 atletas participam da seletiva de futebol. Então é melhor você correr...",
-  subtitle: "Preencha seus dados para realizar a sua inscrição.",
+  title: "Seletiva Next Academy",
+  subtitle: "Falta pouco pra você dar um show em campo.",
+  description: "Preencha os dados abaixo para confirmar sua reserva. "
 };
 
-const STEPS_COUNT = 2;
 const SHOW_PAYMENT_FORM_WITH_PERSONAL_DATA = true;
 
 export const Main: React.FC = () => {
-  const [headerTitle, setHeaderTitle] = useState(DEFAULT_TITLE_HEADER.title);
-  const [headerSubtitle, setHeaderSubtitle] = useState(
-    DEFAULT_TITLE_HEADER.subtitle
-  );
   const [actualStep, setActualStep] = useState(1);
   const [actualForm, setActualForm] = useState("personal");
   const [personalData, setPersonalData] = useState<any>({});
@@ -55,6 +53,7 @@ export const Main: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [selectedPayment, setSelectedPayment] = useState("credit_card");
   const [leadSent, setLeadSent] = useState(false);
+  const [leadData, setLeadData] = useState<PersonalData>({} as PersonalData);
 
   const onContinuePersonalData = (personalData: PersonalData) => {
     if (!SHOW_PAYMENT_FORM_WITH_PERSONAL_DATA) {
@@ -97,7 +96,7 @@ export const Main: React.FC = () => {
           "state",
           "city",
         ]),
-        ...(paymentData.type === "credit_card" ? paymentData : {}),
+        ...(paymentData.type === LeadPaymentType.CREDIT_CARD || paymentData.type === LeadPaymentType.BANKSLIP ? paymentData : {}),
         cpf: "75765773044",
         neighborhood: "Jardim São Paulo",
         address: "Rua Barra de São João",
@@ -108,7 +107,8 @@ export const Main: React.FC = () => {
         city: "São Paulo",
       };
       paymentDataSend.value = PRODUCT_VALUE;
-      paymentDataSend.method = paymentDataSend.type || "pix";
+      console.log('paymentDataSend', JSON.parse(JSON.stringify(paymentDataSend)), JSON.parse(JSON.stringify(paymentData)))
+      paymentDataSend.method = paymentDataSend.type || LeadPaymentType.PIX;
 
       keysOnlyNumbers.map(
         (item) => (paymentDataSend[item] = OnlyNumber(paymentDataSend[item]))
@@ -136,11 +136,17 @@ export const Main: React.FC = () => {
 
       delete paymentDataSend.type;
 
+      const paymentType: any = {
+        [LeadPaymentType.CREDIT_CARD]: LeadPaymentType.CREDIT_CARD,
+        [LeadPaymentType.PIX]: LeadPaymentType.PIX,
+        [LeadPaymentType.BANKSLIP]: LeadPaymentType.BANKSLIP,
+      }
+
       const leadData: LeadPendingPayment = {
         name: paymentDataSend.name,
         phone: realPhoneNumber,
         email: paymentDataSend.email,
-        payment_type: paymentDataSend.method === "pix" ? LeadPaymentType.PIX : LeadPaymentType.CREDIT_CARD,
+        payment_type: paymentType[paymentDataSend.method],
         event_type: "pagamento_pendente",
         value: PRODUCT_VALUE,
         order_id: (new Date()).getTime()
@@ -162,6 +168,14 @@ export const Main: React.FC = () => {
         }).catch((error) => console.log('Erro ao criar pagamento pendente', error));
       }
 
+      if (leadData.payment_type === LeadPaymentType.BANKSLIP) {
+        triggerPendingPayment({
+          ...leadData,
+          billet_url: data?.data?.pdf,
+          billet_barcode: data?.data?.line,
+        }).catch((error) => console.log('Erro ao criar pagamento pendente', error));
+      }
+
       const CARD_ERRORS_STATUS = ["not_authorized","failed"]
 
       if (
@@ -177,11 +191,6 @@ export const Main: React.FC = () => {
         return;
       }
 
-      if (!SHOW_PAYMENT_FORM_WITH_PERSONAL_DATA) {
-        setHeaderTitle(null as any);
-        setHeaderSubtitle(null as any);
-        setActualForm(null as any);
-      }
 
       setPaymentSuccefullData({
         ...paymentData,
@@ -191,9 +200,13 @@ export const Main: React.FC = () => {
           copy_and_paste_code: data?.data?.qr_code,
           handoutId: data.handout?.id || "123",
         },
+        bankslip_payment: {
+          line: data?.data?.line,
+          pdf: data?.data?.pdf,
+        }
       } as any);
 
-      if (selectedPayment != "credit_card") {
+      if (selectedPayment === LeadPaymentType.PIX) {
         setTimeout(() => {
           window.scrollTo({ top: window.pageYOffset * 1.45 });
         }, 250);
@@ -201,7 +214,7 @@ export const Main: React.FC = () => {
         return;
       }
 
-      if (selectedPayment === "credit_card") {
+      if (selectedPayment === LeadPaymentType.CREDIT_CARD) {
         triggerConfirmPayment(leadData).catch((error) => console.log("Error to send confirmation payment", error));
       }
 
@@ -228,10 +241,22 @@ export const Main: React.FC = () => {
   };
 
   const handlePixPaid = async () => {
-    setHeaderTitle(null as any);
-    setHeaderSubtitle(null as any);
-    setActualForm(null as any);
   };
+
+  const getButtonName = useCallback(() => {
+    const buttonName: any = {
+      credit_card: "Confirmar Pagamento →",
+      pix: "Gerar Código Pix →",
+      boleto: "Confirmar Pagamento com boleto →"
+    }
+
+    return buttonName[selectedPayment];
+  }, [selectedPayment])
+
+  const onLeadSent = (data: PersonalData) => {
+    setLeadSent(true);
+    setLeadData(data);
+  }
 
   useEffect(() => {
     gTavEvent("event", "conversion", {
@@ -241,63 +266,83 @@ export const Main: React.FC = () => {
 
   return (
     <Layout style={{ background: "#171717" }}>
-      <Header>
-        <NextHeader
-          title={headerTitle}
-          subtitle={headerSubtitle}
-          actualStep={actualStep}
-          stepsCount={STEPS_COUNT}
-          onBack={handleOnBack}
-        />
-      </Header>
-      <Container>
-        {actualForm === "personal" && (
-          <FormPersonalData
-            initialData={{ genre: "M" } as any}
-            onContinue={onContinuePersonalData}
-            useContinue={!SHOW_PAYMENT_FORM_WITH_PERSONAL_DATA}
-            onLeadSent={() => setLeadSent(true)}
-          />
-        )}
-
-        {(actualForm === "payment" || SHOW_PAYMENT_FORM_WITH_PERSONAL_DATA) &&
-          actualForm !== null && (
-            <PaymentSelection
-              useContinue={!SHOW_PAYMENT_FORM_WITH_PERSONAL_DATA}
-              loading={loading}
-              onPay={onPayment}
-              onSelectPayment={(payment: string) => setSelectedPayment(payment)}
-              leadSent={leadSent}
+      <ContainerInitial>
+        <div>
+          <RowInitial>
+            <Col span={12} style={{ paddingLeft: "15px", paddingBottom: "25px" }} >
+              <Image
+                alt="Logo Next Academy"
+                width={119}
+                height={43}
+                src="/checkout-unbk/assets/logo-next.png"
+              />
+            </Col>
+          </RowInitial>
+          <Header>
+            <NextHeader
+              title={DEFAULT_TITLE_HEADER.title}
+              subtitle={DEFAULT_TITLE_HEADER.subtitle}
+              description={DEFAULT_TITLE_HEADER.description}
+              actualStep={actualStep}
+              onBack={handleOnBack}
             />
-          )}
+          </Header>
+        </div>
 
-        {SHOW_PAYMENT_FORM_WITH_PERSONAL_DATA && !paymentSuccefullData && (
-          <CenterLayout>
-            <Row style={{ marginTop: "1rem" }} className="input-row">
-              <Col span={24}>
-                {leadSent && (
-                  <DefaultButton
-                    loading={loading}
-                    onClick={handlePayWithAllForms}
-                    id="button-confirm-payment"
-                  >
-                    {selectedPayment === "credit_card"
-                      ? "Confirmar Pagamento →"
-                      : "Gerar Código Pix →"}
-                  </DefaultButton>
-                )}
-              </Col>
-            </Row>
-          </CenterLayout>
-        )}
+        <Row style={{ marginBottom: "4rem" }}>
+          <ColPersonal span={12}>
+            {actualForm === "personal" && (
+              <FormPersonalData
+                initialData={{ genre: "M" } as any}
+                onContinue={onContinuePersonalData}
+                useContinue={!SHOW_PAYMENT_FORM_WITH_PERSONAL_DATA}
+                onLeadSent={onLeadSent}
+              />
+            )}
 
-        {paymentSuccefullData && (
-          <ConfirmPayment
-            onPaid={handlePixPaid}
-            paymentData={paymentSuccefullData}
-          />
-        )}
-      </Container>
+            {(actualForm === "payment" || SHOW_PAYMENT_FORM_WITH_PERSONAL_DATA) &&
+              actualForm !== null && (
+                <PaymentSelection
+                  useContinue={!SHOW_PAYMENT_FORM_WITH_PERSONAL_DATA}
+                  loading={loading}
+                  onPay={onPayment}
+                  onSelectPayment={(payment: string) => setSelectedPayment(payment)}
+                  leadSent={leadSent}
+                />
+              )}
+
+            {SHOW_PAYMENT_FORM_WITH_PERSONAL_DATA && !paymentSuccefullData && (
+              <CenterLayout span={24} offset={0}>
+                <Row style={{ marginTop: "1rem" }} className="input-row">
+                  <Col span={24}>
+                    {leadSent && (
+                      <DefaultButton
+                        loading={loading}
+                        onClick={handlePayWithAllForms}
+                        id="button-confirm-payment"
+                      >
+                        {getButtonName()}
+                      </DefaultButton>
+                    )}
+                  </Col>
+                </Row>
+              </CenterLayout>
+            )}
+
+            {paymentSuccefullData && (
+              <ConfirmPayment
+                onPaid={handlePixPaid}
+                paymentData={paymentSuccefullData}
+              />
+            )}
+          </ColPersonal>
+
+          <ColPersonal2 span={12}>
+            <EventInformation position={leadData?.position} eventSelected={leadData?.seletiva} />
+          </ColPersonal2>
+        </Row>
+
+      </ContainerInitial>
     </Layout>
   );
 };

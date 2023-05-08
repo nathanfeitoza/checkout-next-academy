@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { PRODUCT_COLOR } from "../../constants";
 
 export const PaymentPriceContainer = styled.div`
   display: flex;
@@ -48,7 +49,8 @@ export const PaymentTypeContainer = styled.div`
 `;
 
 export const PaymentTypeItem = styled.div`
-  background-color: #030303;
+  background-color: #fff;
+  border: 1px solid #000;
   padding: 8px 20px 8px 20px;
   display: flex;
   flex-direction: column;
@@ -60,7 +62,7 @@ export const PaymentTypeItem = styled.div`
     font-weight: 700;
     font-size: 24px;
     line-height: 119.2%;
-    color: #FFFFFF;
+    color: #030303;
   }
 
   .ant-radio-inner::after {
@@ -69,11 +71,11 @@ export const PaymentTypeItem = styled.div`
     margin-block-start: -18px;
     margin-inline-start: -18px;
     border-radius: 45px;
-    background-color: #F35B04;
+    background-color: ${PRODUCT_COLOR};
   }
 
   .ant-radio-checked .ant-radio-inner {
-    border-color: #F35B04;
+    border-color: ${PRODUCT_COLOR};
     background-color: transparent;
   }
 
@@ -81,7 +83,11 @@ export const PaymentTypeItem = styled.div`
     width: 25px;
     height: 25px;
     background-color: transparent;
-    border-color: #F35B04;
+    border-color: ${PRODUCT_COLOR};
+  }
+
+  input, select {
+    border: 1px solid ${PRODUCT_COLOR} !important;
   }
 `;
 

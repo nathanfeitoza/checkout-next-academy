@@ -5,6 +5,7 @@ type FriendType = {
 export enum LeadPaymentType {
   PIX = "pix",
   CREDIT_CARD = "credit-card",
+  BANKSLIP = "boleto",
 }
 
 export type FriendsType = {
@@ -36,6 +37,8 @@ export type LeadPendingPayment = {
   pix_due_date?: string;
   pix_qr_code?: string;
   pix_url?: string;
+  billet_barcode?: string;
+  billet_url?: string;
 };
 
 export interface LeadDataStorage extends LeadPendingPayment {

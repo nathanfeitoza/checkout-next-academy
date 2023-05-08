@@ -1,3 +1,7 @@
+:root {
+  --product-color: #F35B04;
+}
+
 html,
 body {
   padding: 0;
@@ -40,7 +44,7 @@ a {
 }
 
 select, input {
-  max-height: 42px;
+  max-height: 58px;
 }
 
 .styles__Header-sc-1fn4imv-0 {
@@ -50,7 +54,6 @@ select, input {
   background-position:bottom;
   color:#fff;
   line-height:64px;
-  border-bottom:2px solid #F35B04;
 }
 
 @media only screen and (max-width: 768px) {
@@ -74,4 +77,13 @@ select, input {
     flex: 0 0 100% !important;
     max-width: 100% !important;
   }
+}
+
+.ant-slider-disabled .ant-slider-track {
+  background-color: var(--product-color) !important;
+}
+
+.ant-slider-disabled .ant-slider-handle, .ant-slider-disabled .ant-slider-dot {
+  background-color: #171717;
+  border-color: var(--product-color) !important;
 }

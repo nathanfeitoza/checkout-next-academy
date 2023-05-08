@@ -11,4 +11,6 @@ export interface PersonalData {
   zipcode: string;
   neighborhood: string;
   complement: string;
+  seletiva: string;
+  position: string;
 }

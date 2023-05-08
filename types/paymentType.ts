@@ -1,5 +1,7 @@
+import { LeadPaymentType } from "./contactType";
+
 export interface PaymentData {
-  method: 'pix' | 'credit_card';
+  method: LeadPaymentType;
   value: number;
   name: string;
   email: string;

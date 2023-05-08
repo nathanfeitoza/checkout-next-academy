@@ -15,6 +15,8 @@ import {
   PaymentTypeRadioContainer,
 } from "./styles";
 import { PRODUCT_NAME, PRODUCT_VALUE } from "../../constants";
+import { BankSlipInformation } from "../BankSlipInformation";
+import { LeadPaymentType } from "../../types/contactType";
 
 export interface PaymentSelectionProps {
   onPay: (paymentData: PaymentData) => any;
@@ -25,18 +27,28 @@ export interface PaymentSelectionProps {
 }
 
 const PAYMENTS_TYPES = {
-  credit_card: {
+  [LeadPaymentType.CREDIT_CARD]: {
     label: "Cartão de crédito",
     children: (control: any, errors: any, watch: any) => (
       <CardForm watch={watch} control={control} errors={errors} />
     ),
   },
-  pix: {
+  [LeadPaymentType.PIX]: {
     label: "Pix",
     children: () => (
       <>
         <div style={{ marginTop: "-.2rem" }}>
           <PixInformation />
+        </div>
+      </>
+    ),
+  },
+  [LeadPaymentType.BANKSLIP]: {
+    label: "Boleto",
+    children: () => (
+      <>
+        <div style={{ marginTop: "-.2rem" }}>
+          <BankSlipInformation />
         </div>
       </>
     ),
@@ -57,6 +69,7 @@ export const PaymentSelection = ({
     formState: { errors },
   } = useForm({ defaultValues: { installments: 1 } });
   const onSubmit = (data: any) => {
+    console.log('selectedPayment', selectedPayment)
     if (!selectedPayment) {
       notification.error({
         message: "Selecione uma forma de pagamento",
@@ -66,7 +79,7 @@ export const PaymentSelection = ({
       return;
     }
 
-    if (selectedPayment === "pix") {
+    if (selectedPayment === LeadPaymentType.PIX) {
       data = {
         pix_payment: {
           img_url: "/checkout-unbk/assets/qrcode.png",
@@ -84,7 +97,7 @@ export const PaymentSelection = ({
     setSelectedPayment(value);
     onSelectPayment && onSelectPayment(value);
 
-    if (value == "pix") {
+    if (value == LeadPaymentType.PIX) {
       setTimeout(() => {
         window.scrollTo({
           top: 10000,
@@ -95,18 +108,9 @@ export const PaymentSelection = ({
   };
 
   return (
-    <CenterLayout>
-      <Row style={{ paddingTop: "0rem", marginBottom: "0rem" }}>
-        <SectionTitle>Detalhes do pedido</SectionTitle>
-      </Row>
-      <Row style={{ marginBottom: "1rem" }}>
-        <PaymentPriceContainer>
-          <PaymentPriceText>{PRODUCT_NAME}</PaymentPriceText>
-          <PaymentPriceText>R$ {PRODUCT_VALUE}</PaymentPriceText>
-        </PaymentPriceContainer>
-      </Row>
+    <CenterLayout span={24} offset={0}>
       {leadSent && (
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form style={{ marginTop: "2rem" }} onSubmit={handleSubmit(onSubmit)}>
           <Row style={{ marginBottom: ".5rem" }}>
             <SectionTitle>Selecione a Forma de pagamento</SectionTitle>
           </Row>

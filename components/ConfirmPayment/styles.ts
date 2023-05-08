@@ -16,7 +16,7 @@ export const ConfirmTitle = styled.p`
   font-size: 24px;
   line-height: 119.2%;
   text-align: center;
-  color: #ffffff;
+  color: #030303;
 `;
 
 export const ConfirmSubTitle = styled.p`
@@ -27,7 +27,7 @@ export const ConfirmSubTitle = styled.p`
   font-size: 14px;
   line-height: 119.2%;
   text-align: center;
-  color: #ffffff;
+  color: #030303;
 `;
 
 export const ConfirmSubtitle = styled.p`

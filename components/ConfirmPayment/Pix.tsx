@@ -10,6 +10,7 @@ import { Footer } from "./Footer";
 import { ConfirmSubtitle, ConfirmTitle, Container } from "./styles";
 import { checkPayment } from "../../services/payment";
 import { gTavEvent } from "../../utils/gTagEvent";
+import { PRODUCT_COLOR } from "../../constants";
 
 export interface PixProps {
   pixData: PixPayment;
@@ -118,13 +119,13 @@ export const Pix = ({ pixData, onPixPaid }: PixProps) => {
   };
 
   return (
-    <CenterLayout span={10} offset={6}>
+    <CenterLayout span={18} offset={3}>
       <Container>
         <Row style={{ marginTop: "2rem", marginBottom: "1rem" }}>
-          <ConfirmTitle style={{ color: "#F35B04" }}>ATENÇÃO!</ConfirmTitle>
+          <ConfirmTitle style={{ color: PRODUCT_COLOR }}>ATENÇÃO!</ConfirmTitle>
         </Row>
         <Row style={{ marginTop: "0rem", marginBottom: "3rem" }}>
-          <ConfirmTitle>A SUA VAGA AINDA <strong style={{ color: "#F35B04" }}>NÃO</strong> FOI GARANTIDA!</ConfirmTitle>
+          <ConfirmTitle>A SUA VAGA AINDA <strong style={{ color: PRODUCT_COLOR }}>NÃO</strong> FOI GARANTIDA!</ConfirmTitle>
         </Row>
         <Row style={{ marginTop: "0rem", marginBottom: "1rem" }}>
           <ConfirmTitle style={{ fontSize: "14px", fontWeight: 400 }}>

@@ -32,6 +32,8 @@ export interface Data {
   qr_code: string;
   qr_code_url: string;
   expires_at: string;
+  pdf: string;
+  line: string;
 }
 
 export interface Card {
