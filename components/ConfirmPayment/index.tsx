@@ -21,6 +21,7 @@ export const ConfirmPayment = ({ paymentData, onPaid }: ConfirmPaymentProps) => 
   }
 
   useEffect(() => {
+    console.log('paymentData', paymentData)
     if (paymentData.type === LeadPaymentType.CREDIT_CARD) {
       onPaid();
     }
@@ -31,7 +32,7 @@ export const ConfirmPayment = ({ paymentData, onPaid }: ConfirmPaymentProps) => 
   }
 
   if (paymentData.type === LeadPaymentType.PIX) {
-    <Pix onPixPaid={handlePixPaid} pixData={paymentData.pix_payment as PixPayment} />
+    return <Pix onPixPaid={handlePixPaid} pixData={paymentData.pix_payment as PixPayment} />
   }
 
   return <BankSlip bankSlipPayment={paymentData.bankslip_payment as BankSlipPayment} />

@@ -260,6 +260,10 @@ const SELECTIVE_STATES = [
 
 const POSITIONS = [
   {
+    label: "",
+    value: "",
+  },
+  {
     label: "Atacante",
     value: "Atacante",
   },
