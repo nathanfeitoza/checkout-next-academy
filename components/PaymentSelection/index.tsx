@@ -69,7 +69,7 @@ export const PaymentSelection = ({
     formState: { errors },
   } = useForm({ defaultValues: { installments: 1 } });
   const onSubmit = (data: any) => {
-    console.log('selectedPayment', selectedPayment)
+
     if (!selectedPayment) {
       notification.error({
         message: "Selecione uma forma de pagamento",

@@ -268,6 +268,10 @@ const POSITIONS = [
     value: "Zagueiro",
   },
   {
+    label: "Lateral",
+    value: "Lateral",
+  },
+  {
     label: "Meio-Campo",
     value: "Meio-Campo",
   },

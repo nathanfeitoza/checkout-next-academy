@@ -113,7 +113,7 @@ export const EventInformation = (data: EventInformationProps) => {
     const [day, monthNumber, year] = date!.split('/');
     const month = MONTHS[parseInt(monthNumber || '0')];
     const state = (extractedState || '').replace(/\W/gm, '');
-    console.log(date, 'event', event)
+
     setCityInfo({
       name: extractedCity.replace('/', ''),
       state, 

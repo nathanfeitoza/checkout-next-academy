@@ -87,3 +87,7 @@ select, input {
   background-color: #171717;
   border-color: var(--product-color) !important;
 }
+
+a.ant-btn {
+  padding-top: 15px !important;
+}
