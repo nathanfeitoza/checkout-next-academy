@@ -37,7 +37,7 @@ export const Card = ({ handoutId }: { handoutId: string }) => {
   }, []);
 
   return (
-    <CenterLayout>
+    <CenterLayout offset={0} span={24}>
       <Container>
         <Row style={{ marginBottom: "2rem", marginTop: "4rem" }}>
           <Image
@@ -62,7 +62,7 @@ export const Card = ({ handoutId }: { handoutId: string }) => {
           <Col span={20} offset={3}>
             <ConfirmTitle>Queremos levar essa mesma oportunidade para mais <span style={{ color: "#ee5904" }}>atletas da sua cidade</span></ConfirmTitle>
           </Col>
-          <Col span={19} offset={3} style={{ marginTop: "2rem", marginBottom: "2rem" }}>
+          <Col span={20} offset={3} style={{ marginTop: "2rem", marginBottom: "2rem" }}>
             <ConfirmSubTitle>Indique <span style={{ color: "#ee5904" }}>05 amigos</span> que poderiam jogar com você no dia da seletiva e receba um curso gratuito de Intercâmbio esportivo no seu e-mail.</ConfirmSubTitle>
           </Col>
           <Col span={24}>

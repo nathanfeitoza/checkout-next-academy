@@ -3,7 +3,7 @@ export interface PersonalData {
   document: string;
   phone: string;
   email: string;
-  birth_date: string;
+  birthdate: string;
   genre: "M" | "F";
   state: string;
   city: string;

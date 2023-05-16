@@ -4,7 +4,7 @@ type FriendType = {
 
 export enum LeadPaymentType {
   PIX = "pix",
-  CREDIT_CARD = "credit-card",
+  CREDIT_CARD = "credit_card",
   BANKSLIP = "boleto",
 }
 

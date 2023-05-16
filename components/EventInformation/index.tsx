@@ -19,6 +19,7 @@ import { MAX_TIME_IN_MINUTES, PRODUCT_COLOR, PRODUCT_NAME } from "../../constant
 interface EventInformationProps {
   position?: string;
   eventSelected?: string;
+  birthDate?: string;
 }
 
 const MAX_POSITIONS = 3;
@@ -43,6 +44,7 @@ export const EventInformation = (data: EventInformationProps) => {
   const [elapsedTime, setElapsedTime] = useState(0);
   const [minutesElapsed, setMinutesElapsed] = useState(MAX_TIME_IN_MINUTES);
   const [secondsElapsed, setSecondElapsed] = useState(60);
+  const [category, setCategory] = useState('');
   const [timeMarks, setTimeMarks] = useState<any>({
     0: {
       style: {
@@ -135,6 +137,12 @@ export const EventInformation = (data: EventInformationProps) => {
     if (data.eventSelected) {
       extractInformation(data.eventSelected);
     }
+    
+    if (data.birthDate) {
+      const [,,categoryYear] = data.birthDate.split('/');
+
+      setCategory(categoryYear.substr(0,4));
+    }
   }, [data]);
 
   return (
@@ -189,7 +197,7 @@ export const EventInformation = (data: EventInformationProps) => {
                 <RunText>Corre!</RunText>
               </Col>
               <Col xs={24} md={13}>
-                <RunInformation><span>Restam apenas</span> 0{vacancyQuantity} vaga{vacancyQuantity > 1 ? 's' : ''} <span>para a categoria {dateInfo.year}, posição</span> {data.position} <span>em</span> {cityInfo.name} <span>no dia</span> {dateInfo.date}<span>.</span></RunInformation>
+                <RunInformation><span>Restam apenas</span> 0{vacancyQuantity} vaga{vacancyQuantity > 1 ? 's' : ''} <span>para a categoria {category}, posição</span> {data.position} <span>em</span> {cityInfo.name} <span>no dia</span> {dateInfo.date}<span>.</span></RunInformation>
               </Col>
             </Row>
 

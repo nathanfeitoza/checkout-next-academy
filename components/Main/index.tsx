@@ -191,7 +191,6 @@ export const Main: React.FC = () => {
         return;
       }
 
-
       setPaymentSuccefullData({
         ...paymentData,
         handoutId: data.handout?.id || "123",
@@ -245,11 +244,11 @@ export const Main: React.FC = () => {
 
   const getButtonName = useCallback(() => {
     const buttonName: any = {
-      credit_card: "Confirmar Pagamento →",
-      pix: "Gerar Código Pix →",
-      boleto: "Confirmar Pagamento com boleto →"
+      [LeadPaymentType.CREDIT_CARD]: "Confirmar Pagamento →",
+      [LeadPaymentType.PIX]: "Gerar Código Pix →",
+      [LeadPaymentType.BANKSLIP]: "Confirmar Pagamento com boleto →"
     }
-
+    console.log(selectedPayment)
     return buttonName[selectedPayment];
   }, [selectedPayment])
 
@@ -310,7 +309,6 @@ export const Main: React.FC = () => {
                   leadSent={leadSent}
                 />
               )}
-
             {SHOW_PAYMENT_FORM_WITH_PERSONAL_DATA && !paymentSuccefullData && (
               <CenterLayout span={24} offset={0}>
                 <Row style={{ marginTop: "1rem" }} className="input-row">
@@ -338,7 +336,7 @@ export const Main: React.FC = () => {
           </ColPersonal>
 
           <ColPersonal2 span={12}>
-            <EventInformation position={leadData?.position} eventSelected={leadData?.seletiva} />
+            <EventInformation position={leadData?.position} eventSelected={leadData?.seletiva} birthDate={leadData?.birthdate} />
           </ColPersonal2>
         </Row>
 
