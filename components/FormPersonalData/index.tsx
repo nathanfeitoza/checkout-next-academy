@@ -25,229 +25,145 @@ const SELECTIVE_STATES = [
     value: "",
   },
   {
-    label: "VOLTA REDONDA/RJ - 30/04/2023",
-    value: "VOLTA REDONDA/RJ - 30/04/2023",
+    label: "MOGI DAS CRUZES/SP - 20/05/2023",
+    value: "MOGI DAS CRUZES/SP - 20/05/2023",
   },
   {
-    label: "VITÓRIA/ES - 30/04/2023",
-    value: "VITÓRIA/ES - 30/04/2023",
+    label: "VOLTA REDONDA/RJ - 20/05/2023",
+    value: "VOLTA REDONDA/RJ - 20/05/2023",
   },
   {
-    label: "VITÓRIA DA CONQUISTA/BA - 15/04/2023",
-    value: "VITÓRIA DA CONQUISTA/BA - 15/04/2023",
+    label: "PORTO ALEGRE/RS - 21/05/2023",
+    value: "PORTO ALEGRE/RS - 21/05/2023",
   },
   {
-    label: "VARGINHA/MG - 15/04/2023",
-    value: "VARGINHA/MG - 15/04/2023",
+    label: "BELO HORIZONTE/MG - 20/05/2023",
+    value: "BELO HORIZONTE/MG - 20/05/2023",
+  },
+  { label: "SÃO LUIS/MA - 21/05/2023", value: "SÃO LUIS/MA - 21/05/2023" },
+  {
+    label: "NOVO HAMBURGO/RS - 20/05/2023",
+    value: "NOVO HAMBURGO/RS - 20/05/2023",
+  },
+  { label: "BELÉM/PA - 21/05/2023", value: "BELÉM/PA - 21/05/2023" },
+  {
+    label: "SÃO JOSÉ DO RIO PRETO/SP - 21/05/2023",
+    value: "SÃO JOSÉ DO RIO PRETO/SP - 21/05/2023",
+  },
+  { label: "IPATINGA/MG - 21/05/2023", value: "IPATINGA/MG - 21/05/2023" },
+  { label: "NITERÓI/RJ - 21/05/2023", value: "NITERÓI/RJ - 21/05/2023" },
+  { label: "FORTALEZA/CE - 21/05/2023", value: "FORTALEZA/CE - 21/05/2023" },
+  { label: "SANTOS/SP - 21/05/2023", value: "SANTOS/SP - 21/05/2023" },
+  {
+    label: "PORTO VELHO/RO - 21/05/2023",
+    value: "PORTO VELHO/RO - 21/05/2023",
+  },
+  { label: "BRASÍLIA/DF - 27/05/2023", value: "BRASÍLIA/DF - 27/05/2023" },
+  { label: "JOINVILLE/SC - 27/05/2023", value: "JOINVILLE/SC - 27/05/2023" },
+  { label: "LONDRINA/PR - 27/05/2023", value: "LONDRINA/PR - 27/05/2023" },
+  { label: "VITÓRIA/ES - 28/05/2023", value: "VITÓRIA/ES - 28/05/2023" },
+  { label: "MARABÁ/PA - 27/05/2023", value: "MARABÁ/PA - 27/05/2023" },
+  {
+    label: "FOZ DO IGUAÇU/PR - 27/05/2023",
+    value: "FOZ DO IGUAÇU/PR - 27/05/2023",
   },
   {
-    label: "TERESINA/PI - 30/04/2023",
-    value: "TERESINA/PI - 30/04/2023",
+    label: "ABC PAULISTA/SP - 28/05/2023",
+    value: "ABC PAULISTA/SP - 28/05/2023",
   },
-  {
-    label: "SINOP/MT - 30/04/2023",
-    value: "SINOP/MT - 30/04/2023",
-  },
-  {
-    label: "SÃO PAULO/SP - 30/04/2023",
-    value: "SÃO PAULO/SP - 30/04/2023",
-  },
-  {
-    label: "SÃO LUIS/MA - 02/04/2023",
-    value: "SÃO LUIS/MA - 02/04/2023",
-  },
-  {
-    label: "SÃO JOSÉ DO RIO PRETO/SP - 07/05/2023",
-    value: "SÃO JOSÉ DO RIO PRETO/SP - 07/05/2023",
-  },
-  {
-    label: "SANTO ANDRÉ/SP - 28/05/2023",
-    value: "SANTO ANDRÉ/SP - 28/05/2023",
-  },
-  {
-    label: "RIO BRANCO/AC - 30/04/2023",
-    value: "RIO BRANCO/AC - 30/04/2023",
-  },
+  { label: "RECIFE/PE - 28/05/2023", value: "RECIFE/PE - 28/05/2023" },
+  { label: "CURITIBA/PR - 28/05/2023", value: "CURITIBA/PR - 28/05/2023" },
+  { label: "VINHEDO/SP - 28/05/2023", value: "VINHEDO/SP - 28/05/2023" },
   {
     label: "RIBEIRÃO PRETO/SP - 28/05/2023",
     value: "RIBEIRÃO PRETO/SP - 28/05/2023",
   },
+  { label: "MACAÉ/RJ - 28/05/2023", value: "MACAÉ/RJ - 28/05/2023" },
   {
-    label: "RECIFE/PE - 28/05/2023",
-    value: "RECIFE/PE - 28/05/2023",
+    label: "BELO HORIZONTE/MG - 27/05/2023",
+    value: "BELO HORIZONTE/MG - 27/05/2023",
   },
   {
-    label: "PRESIDENTE PRUDENTE/SP - 30/04/2023",
-    value: "PRESIDENTE PRUDENTE/SP - 30/04/2023",
+    label: "JUIZ DE FORA/MG - 28/05/2023",
+    value: "JUIZ DE FORA/MG - 28/05/2023",
+  },
+  { label: "DOURADOS/MS - 28/05/2023", value: "DOURADOS/MS - 28/05/2023" },
+  { label: "PALMAS/TO - 28/05/2023", value: "PALMAS/TO - 28/05/2023" },
+  { label: "CRICIÚMA/SC - 28/05/2023", value: "CRICIÚMA/SC - 28/05/2023" },
+  {
+    label: "PASSO FUNDO/RS - 27/05/2023",
+    value: "PASSO FUNDO/RS - 27/05/2023",
   },
   {
-    label: "PORTO VELHO/RO - 30/04/2023",
-    value: "PORTO VELHO/RO - 30/04/2023",
+    label: "CAMPO GRANDE/RJ - 27/05/2023",
+    value: "CAMPO GRANDE/RJ - 27/05/2023",
+  },
+  { label: "SÃO LUIS/MA - 04/06/2023", value: "SÃO LUIS/MA - 04/06/2023" },
+  { label: "CURITIBA/PR - 04/06/2023", value: "CURITIBA/PR - 04/06/2023" },
+  { label: "CUIABÁ/MT - 04/06/2023", value: "CUIABÁ/MT - 04/06/2023" },
+  { label: "BAURU/SP - 03/06/2023", value: "BAURU/SP - 03/06/2023" },
+  { label: "ARACAJU/SE - 03/06/2023", value: "ARACAJU/SE - 03/06/2023" },
+  { label: "GOIÂNIA/GO - 03/06/2023", value: "GOIÂNIA/GO - 03/06/2023" },
+  {
+    label: "FLORIANÓPOLIS - 03/06/2023",
+    value: "FLORIANÓPOLIS - 03/06/2023",
+  },
+  { label: "BARUERI/SP - 03/06/2023", value: "BARUERI/SP - 03/06/2023" },
+  {
+    label: "JOÃO PESSOA/PB - 03/06/2023",
+    value: "JOÃO PESSOA/PB - 03/06/2023",
+  },
+  { label: "TERESINA/PI - 04/06/2023", value: "TERESINA/PI - 04/06/2023" },
+  { label: "NATAL/RN - 04/06/2023", value: "NATAL/RN - 04/06/2023" },
+  {
+    label: "SÃO JOSÉ DOS CAMPOS - 04/06/2023",
+    value: "SÃO JOSÉ DOS CAMPOS - 04/06/2023",
   },
   {
-    label: "PORTO ALEGRE/RS - 13/05/2023",
-    value: "PORTO ALEGRE/RS - 13/05/2023",
+    label: "PRESIDENTE PRUDENTE/SP - 04/06/2023",
+    value: "PRESIDENTE PRUDENTE/SP - 04/06/2023",
+  },
+  { label: "JUNDIAÍ/SP - 04/06/2023", value: "JUNDIAÍ/SP - 04/06/2023" },
+  {
+    label: "APARECIDA DE GOIÂNIA/GO - 04/06/2023",
+    value: "APARECIDA DE GOIÂNIA/GO - 04/06/2023",
+  },
+  { label: "OSASCO/SP - 10/06/2023", value: "OSASCO/SP - 10/06/2023" },
+  { label: "GUARULHOS/SP - 10/06/2023", value: "GUARULHOS/SP - 10/06/2023" },
+  {
+    label: "SÃO PAULO (VILA PRUDENTE) - 10/06/2023",
+    value: "SÃO PAULO (VILA PRUDENTE) - 10/06/2023",
   },
   {
-    label: "PONTA GROSSA/PR - 30/04/2023",
-    value: "PONTA GROSSA/PR - 30/04/2023",
+    label: "BARRA FUNDA/SP - 10/06/2023",
+    value: "BARRA FUNDA/SP - 10/06/2023",
+  },
+  { label: "BARUERI/SP - 11/06/2023", value: "BARUERI/SP - 11/06/2023" },
+  {
+    label: "SÃO PAULO (BERRINI) - 11/06/2023",
+    value: "SÃO PAULO (BERRINI) - 11/06/2023",
+  },
+  { label: "MANAUS/AM - 11/06/2023", value: "MANAUS/AM - 11/06/2023" },
+  { label: "SANTOS/SP - 17/06/2023", value: "SANTOS/SP - 17/06/2023" },
+  {
+    label: "PORTO ALEGRE/RS - 17/06/2023",
+    value: "PORTO ALEGRE/RS - 17/06/2023",
   },
   {
-    label: "PALMAS/TO - 30/04/2023",
-    value: "PALMAS/TO - 30/04/2023",
+    label: "DIVINÓPOLIS/MG - 17/06/2023",
+    value: "DIVINÓPOLIS/MG - 17/06/2023",
   },
+  { label: "MACAPÁ/AP - 17/06/2023", value: "MACAPÁ/AP - 17/06/2023" },
   {
-    label: "OSASCO/SP - 30/04/2023",
-    value: "OSASCO/SP - 30/04/2023",
+    label: "APARECIDA DE GOIÂNIA/GO - 18/06/2023",
+    value: "APARECIDA DE GOIÂNIA/GO - 18/06/2023",
   },
+  { label: "JOINVILLE/SC - 24/06/2023", value: "JOINVILLE/SC - 24/06/2023" },
   {
-    label: "NITERÓI/RJ - 30/04/2023",
-    value: "NITERÓI/RJ - 30/04/2023",
+    label: "JUIZ DE FORA/MG - 25/06/2023",
+    value: "JUIZ DE FORA/MG - 25/06/2023",
   },
-  {
-    label: "NATAL/RN - 16/04/2023",
-    value: "NATAL/RN - 16/04/2023",
-  },
-  {
-    label: "MONTES CLAROS/MG - 06/05/2023",
-    value: "MONTES CLAROS/MG - 06/05/2023",
-  },
-  {
-    label: "MOGI DAS CRUZES/SP - 30/04/2023",
-    value: "MOGI DAS CRUZES/SP - 30/04/2023",
-  },
-  {
-    label: "MARINGÁ/PR - 08/04/2023",
-    value: "MARINGÁ/PR - 08/04/2023",
-  },
-  {
-    label: "MARABÁ/PA - 09/04/2023",
-    value: "MARABÁ/PA - 09/04/2023",
-  },
-  {
-    label: "MANAUS/AM - 16/04/2023",
-    value: "MANAUS/AM - 16/04/2023",
-  },
-  {
-    label: "MACEIÓ/AL - 30/04/2023",
-    value: "MACEIÓ/AL - 30/04/2023",
-  },
-  {
-    label: "MACAPÁ/AP - 30/04/2023",
-    value: "MACAPÁ/AP - 30/04/2023",
-  },
-  {
-    label: "MACAÉ/RJ - 08/04/2023",
-    value: "MACAÉ/RJ - 08/04/2023",
-  },
-  {
-    label: "LONDRINA/PR - 30/04/2023",
-    value: "LONDRINA/PR - 30/04/2023",
-  },
-  {
-    label: "JUIZ DE FORA/MG - 30/04/2023",
-    value: "JUIZ DE FORA/MG - 30/04/2023",
-  },
-  {
-    label: "JOINVILLE/SC - 30/04/2023",
-    value: "JOINVILLE/SC - 30/04/2023",
-  },
-  {
-    label: "JOÃO PESSOA/PB - 30/04/2023",
-    value: "JOÃO PESSOA/PB - 30/04/2023",
-  },
-  {
-    label: "IPATINGA/MG - 30/04/2023",
-    value: "IPATINGA/MG - 30/04/2023",
-  },
-  {
-    label: "GUARULHOS/SP - 30/04/2023",
-    value: "GUARULHOS/SP - 30/04/2023",
-  },
-  {
-    label: "GOIÂNIA/GO - 30/04/2023",
-    value: "GOIÂNIA/GO - 30/04/2023",
-  },
-  {
-    label: "FRANCA/SP - 01/04/2023",
-    value: "FRANCA/SP - 01/04/2023",
-  },
-  {
-    label: "FOZ DO IGUAÇU/PR - 30/04/2023",
-    value: "FOZ DO IGUAÇU/PR - 30/04/2023",
-  },
-  {
-    label: "FORTALEZA/CE - 30/04/2023",
-    value: "FORTALEZA/CE - 30/04/2023",
-  },
-  {
-    label: "FLORIANÓPOLIS/SC - 25/06/2023",
-    value: "FLORIANÓPOLIS/SC - 25/06/2023",
-  },
-  {
-    label: "DOURADOS/MS - 28/05/2023",
-    value: "DOURADOS/MS - 28/05/2023",
-  },
-  {
-    label: "DIVINÓPOLIS/MG - 06/05/2023",
-    value: "DIVINÓPOLIS/MG - 06/05/2023",
-  },
-  {
-    label: "CURITIBA/PR - 28/05/2023",
-    value: "CURITIBA/PR - 28/05/2023",
-  },
-  {
-    label: "CUIABÁ/MT - 02/04/2023",
-    value: "CUIABÁ/MT - 02/04/2023",
-  },
-  {
-    label: "COTIA/SP - 30/04/2023",
-    value: "COTIA/SP - 30/04/2023",
-  },
-  {
-    label: "CAMPO GRANDE/RJ - 30/04/2023",
-    value: "CAMPO GRANDE/RJ - 30/04/2023",
-  },
-  {
-    label: "CAMPO GRANDE/MS - 08/04/2023",
-    value: "CAMPO GRANDE/MS - 08/04/2023",
-  },
-  {
-    label: "BRASÍLIA/DF - 08/04/2023",
-    value: "BRASÍLIA/DF - 08/04/2023",
-  },
-  {
-    label: "BOA VISTA/RR - 30/04/2023",
-    value: "BOA VISTA/RR - 30/04/2023",
-  },
-  {
-    label: "BELÉM/PA - 15/04/2023",
-    value: "BELÉM/PA - 15/04/2023",
-  },
-  {
-    label: "BAURU/SP - 30/04/2023",
-    value: "BAURU/SP - 30/04/2023",
-  },
-  {
-    label: "BARUERI/SP - 30/04/2023",
-    value: "BARUERI/SP - 30/04/2023",
-  },
-  {
-    label: "BARRA FUNDA/SP - 30/04/2023",
-    value: "BARRA FUNDA/SP - 30/04/2023",
-  },
-  {
-    label: "ARACAJU/SE - 30/04/2023",
-    value: "ARACAJU/SE - 30/04/2023",
-  },
-  {
-    label: "APARECIDA DE GOIÂNIA/GO - 07/05/2023",
-    value: "APARECIDA DE GOIÂNIA/GO - 07/05/2023",
-  },
-  {
-    label: "AMERICANA/SP - 30/04/2023",
-    value: "AMERICANA/SP - 30/04/2023",
-  },
+  { label: "MACEIÓ/AL - 25/06/2023", value: "MACEIÓ/AL - 25/06/2023" },
 ].sort(function (a, b) {
   if (a.label < b.label) {
     return -1;
